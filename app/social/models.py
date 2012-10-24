@@ -25,6 +25,9 @@ class Course(models.Model):
    def __unicode__(self):
       return '%s: %s'%(self.get_service_display(),self.name)
 
+   class Meta:
+      ordering = ['service', 'name']
+
 class UserProfile(models.Model):
    user = models.OneToOneField(User, primary_key=True)
    person_type = models.CharField(max_length=1,choices=PERSON_TYPE_CHOICES,verbose_name="What best describes you")
