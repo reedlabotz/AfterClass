@@ -48,10 +48,22 @@ def first_time_availability(request):
    return render_to_response('first_time/availability.html',{'user_availability_form':user_availability_form,'days':days,'hours':hours},context_instance=RequestContext(request))
 
 def first_time_courses(request):
+   courses = request.user.get_profile().courses.all()
    user_course_form = UserCourseForm()
    if request.POST:
-      return redirect('/dashboard')
-   return render_to_response('first_time/courses.html',{'user_course_form':user_course_form},context_instance=RequestContext(request))
+      user_course_form = UserCourseForm(request.POST)
+      if user_course_form.is_valid():
+         user_course = user_course_form.save(commit=False)
+         user_course.user = request.user.get_profile()
+         user_course.save()
+         if request.POST.get('add'):
+            user_course_form = UserCourseForm()
+            courses = request.user.get_profile().courses.all()
+         else:
+            return redirect('/dashboard')
+      elif courses.count() > 0 and len(user_course_form.errors.items())== 6:
+         return redirect('/dashboard')
+   return render_to_response('first_time/courses.html',{'courses':courses,'user_course_form':user_course_form},context_instance=RequestContext(request))
 
 def courses(request):
    return render_to_response('main.html',{},context_instance=RequestContext(request))
