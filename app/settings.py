@@ -94,6 +94,15 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'app.utils.http.Http403Middleware',
+    'app.utils.loginmiddleware.RequireLoginMiddleware',
+)
+
+LOGIN_REQUIRED_URLS = (
+  r'/dashboard/.*$',
+  r'/courses/.*$',
+  r'/friends/.*$',
+  r'/account/.*$',
 )
 
 ROOT_URLCONF = 'app.urls'
@@ -111,6 +120,7 @@ TEMPLATE_DIRS = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.static',
+    'django.contrib.auth.context_processors.auth',
 )
 
 INSTALLED_APPS = (
@@ -128,6 +138,8 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'app.social',
+    'app.accounts',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -163,6 +175,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login'
 LOGOUT_URL = '/logout'
 ACCOUNT_ACTIVATION_DAYS = 15
+AUTH_PROFILE_MODULE = 'social.UserProfile'
 
 try:
   from local_settings import *

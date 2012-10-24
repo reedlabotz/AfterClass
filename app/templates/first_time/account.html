@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+{% block content %}
+<h1>Step 1: Personal Information</h1>
+<p>To help me find you a good match please give me some personal information.</p>
+<form class="well" method="post">
+  {% csrf_token %}
+  {{ user_form|bootstrap }}
+  {{ user_profile_form|bootstrap }}
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn btn-primary">Next</button>
+    </div>
+  </div>
+</form>
+{% endblock %}

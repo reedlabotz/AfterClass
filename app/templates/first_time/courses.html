@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+{% block content %}
+<h1>Step 3: Your Courses</h1>
+<p>To find you good partners we need to know what courses you are taking and why you are taking them.</p>
+<form class="well" method="post">
+  {{ user_course_form|bootstrap }}
+  {% csrf_token %}
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn btn-primary">Done</button>
+    </div>
+  </div>
+</form>
+{% endblock %}

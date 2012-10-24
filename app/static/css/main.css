@@ -1,0 +1,32 @@
+.nav_name{
+   height: 20px;
+   line-height: 20px;
+   padding-bottom: 10px;
+   padding-top: 10px;
+}
+
+.time-cell.selected{
+   background: #D9EDF7;
+}
+
+.time-table{
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+
+   /*
+     Introduced in IE 10.
+     See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+   */
+   -ms-user-select: none;
+   user-select: none;
+}
+
+.time-table th{
+   text-align: center;
+}
+
+.time-label{
+   font-size: 12px;
+   text-align: right;
+}

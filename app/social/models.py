@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 
 PERSON_TYPE_CHOICES = (('h','Highschool Student'),('u','Undergraduate Student'),('g','Graduate Student'),('p','Professional'),('r','Retired'),('o','Other'))
 
@@ -13,20 +14,35 @@ NOVICE_INTERMEDIATE_EXPERT = (('n','Novice'),('i','Intermediate'),('e','expert_l
 
 REASON_CHOICES = (('n','Interest in new topic'),('r','Refresher on topic'),('o','Other'))
 
-class Person(User):
-   person_type = models.CharField(max_length=1,choices=PERSON_TYPE_CHOICES)
-   courses = models.ManyToManyField(Course,through=PersonCourses)
-
 
 class Course(models.Model):
    name = models.CharField(max_length=255)
    service = models.CharField(max_length=1,choices=COURSE_SERVICE_CHOICES)
    course_id = models.CharField(max_length=64)
-   url = models.UrlField()
+   professor = models.CharField(max_length=255)
+   url = models.URLField()
 
+class UserProfile(models.Model):
+   user = models.OneToOneField(User, primary_key=True)
+   person_type = models.CharField(max_length=1,choices=PERSON_TYPE_CHOICES)
+   courses = models.ManyToManyField(Course,through='UserCourse')
+   monday_availability = models.CharField(max_length=32)
+   tuesday_availability = models.CharField(max_length=32)
+   wednesday_availability = models.CharField(max_length=32)
+   thursday_availability = models.CharField(max_length=32)
+   friday_availability = models.CharField(max_length=32)
+   saturday_availability = models.CharField(max_length=32)
+   sunday_availability = models.CharField(max_length=32)
 
-class PersonCourses(models.Model):
-   person = models.ForeignKey(Person)
+def createUserProfile(sender, instance, **kwargs):
+    """Create a UserProfile object each time a User is created ; and link it.
+    """
+    UserProfile.objects.get_or_create(user=instance)
+
+post_save.connect(createUserProfile, sender=User)
+
+class UserCourse(models.Model):
+   user = models.ForeignKey(UserProfile)
    course = models.ForeignKey(Course)
    expert_level = models.CharField(max_length=1,choices=EXPERT_LEVEL_CHOICES)
    expert_time = models.CharField(max_length=1,choices=EXPERT_TIME_CHOICES)

@@ -12,3 +12,10 @@
   </div>
 </form>
 {% endblock %}
+{% block bottom_script %}
+<script>
+$(document).ready(function(){
+   $('label[for="id_username"]').html("Email");
+});
+</script>
+{% endblock %}

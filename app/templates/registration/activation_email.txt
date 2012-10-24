@@ -1,6 +1,6 @@
 Welcome to MOOC Social!
 
-To activate your account please visit {% url 'registration_activate' activation_key %}.
+To activate your account please visit http://{{site.domain}}{% url registration_activate activation_key=activation_key %}.
 
 Thanks,
 MOOC Social

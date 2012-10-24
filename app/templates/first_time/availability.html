@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+{% block content %}
+<h1>Step 2: Availability</h1>
+<p>To help me find you a good match we need to know when you are available to have meetings with your partners. Click times and dates below to mark them as availible.</p>
+<form class="well" method="post" id="availability_form">
+   {{user_availability_form}}
+   {% csrf_token %}
+   <table class="table table-bordered time-table">
+      <thead>
+         <tr>
+            <th width="12.5%"></th>
+            {% for d in days %}
+            <th width="12.5%">{{d}}</th>
+            {% endfor %}
+         </tr>
+      </thead>
+      <tbody>
+      {% for h in hours %}
+      <tr>
+         <td rowspan="2" class='time-label' width="12.5%">{{h}}</td>
+         {% for d in days %}
+         <td class="time-cell day-{{d}} hour-{{h}} hour-whole" width="12.5%"></td>
+         {% endfor %}
+      </tr>
+      <tr>
+         {% for d in days %}
+         <td class="time-cell day-{{d}} hour-{{h}} hour-half" width="12.5%"></td>
+         {% endfor %}
+      </tr>
+      {% endfor %}
+      </tbody>
+   </table>
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn btn-primary">Next</button>
+    </div>
+  </div>
+</form>
+{% endblock %}
+{% block bottom_script %}
+<script>
+$(document).ready(function(){
+  var isMouseDown = false
+  var hours = [{% for h in hours %}'{{h}}'{% if not forloop.last %},{% endif %}{% endfor %}];
+  var days = [{% for d in days %}'{{d}}'{% if not forloop.last %},{% endif %}{% endfor %}];
+
+    $('body').mousedown(function() {
+        isMouseDown = true;
+    })
+    .mouseup(function() {
+        isMouseDown = false;
+    });
+
+   $('.time-cell').mouseover(function(e){
+      if(isMouseDown){
+         $(this).toggleClass('selected');
+      }
+   }).mousedown(function() {
+        $(this).toggleClass('selected');
+    });
+
+
+   //init the grid
+   for(var d=0;d<days.length;d++){
+    var day = days[d];
+    day_string = $("#id_"+day.toLowerCase()+"_availability").val();
+    for(var i=0;i<day_string.length;i++){
+      if(day_string[i] == "1"){
+        if(i%2==0){
+          $(".time-cell.day-"+day+".hour-"+hours[Math.floor(i/2)]+".hour-whole").addClass('selected');
+        }else{
+          $(".time-cell.day-"+day+".hour-"+hours[Math.floor(i/2)]+".hour-half").addClass('selected');
+        }
+      }
+    }
+   }
+
+   
+   //update the day values before submit
+   $("#availability_form").submit(function(){
+      for(var d=0;d<days.length;d++){
+         var day = days[d];
+         var day_string = "";
+         for(var h=0;h<hours.length;h++){
+            var hour = hours[h];
+            var cell_whole = $(".time-cell.day-"+day+".hour-"+hour+".hour-whole");
+            var cell_half = $(".time-cell.day-"+day+".hour-"+hour+".hour-half");
+            if($(cell_whole).hasClass('selected')){
+               day_string += "1";
+            }else{
+               day_string += "0";
+            }
+
+            if($(cell_half).hasClass('selected')){
+               day_string += "1";
+            }else{
+               day_string += "0";
+            }
+         }
+         $("#id_"+day.toLowerCase()+"_availability").val(day_string);
+      }      
+      return true;
+   });
+});
+</script>
+{% endblock %}
