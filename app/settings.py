@@ -186,6 +186,7 @@ if os.environ.get('DJANGO_ENV', False) == 'production':
    #Place Heroku / Production settings in here
    PRODUCTION = True
    DEBUG = False
+   TEMPLATE_DEBUG = DEBUG
 #else:
   
 INSTALLED_APPS += ('django.contrib.staticfiles',)
