@@ -8,6 +8,7 @@ SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+PRODUCTION = False
 
 ADMINS = (
     ('Reed La Botz', 'me@reedlabotz.com'),
@@ -177,6 +178,12 @@ LOGOUT_URL = '/logout'
 ACCOUNT_ACTIVATION_DAYS = 15
 AUTH_PROFILE_MODULE = 'social.UserProfile'
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = os.environ.get('DJANGO_GMAIL_USERNAME', False)
+EMAIL_HOST_PASSWORD = os.environ.get('DJANGO_GMAIL_PASSWORD', False)
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 try:
   from local_settings import *
 except ImportError, exp:
@@ -187,6 +194,5 @@ if os.environ.get('DJANGO_ENV', False) == 'production':
    PRODUCTION = True
    DEBUG = False
    TEMPLATE_DEBUG = DEBUG
-#else:
-  
-INSTALLED_APPS += ('django.contrib.staticfiles',)
+else:
+   INSTALLED_APPS += ('django.contrib.staticfiles',)

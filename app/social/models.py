@@ -8,7 +8,7 @@ COURSE_SERVICE_CHOICES = (('u','Udacity'),('c','Coursera'),('e','edX'))
 
 EXPERT_LEVEL_CHOICES = (('p','Professional'),('u','Undergraduate Student'),('g','Graduate Student'),('h','Hobbiest'),('f','First Timer'),('o','Other'))
 
-EXPERT_TIME_CHOICES = (('0','<1'),('1','1-2'),('2','2-5'),('5','>5'))
+EXPERT_TIME_CHOICES = (('0','<1 year'),('1','1-2 years'),('2','2-5 years'),('5','>5 years'))
 
 NOVICE_INTERMEDIATE_EXPERT = (('n','Novice'),('i','Intermediate'),('e','expert_level'))
 

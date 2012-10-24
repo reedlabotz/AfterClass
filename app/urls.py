@@ -23,6 +23,6 @@ urlpatterns = patterns('',
    url(r'^', include('app.accounts.urls')),
 )
 
-#if settings.DEBUG == True:
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-urlpatterns += staticfiles_urlpatterns()
+if settings.DEBUG == True:
+   from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+   urlpatterns += staticfiles_urlpatterns()
