@@ -30,9 +30,9 @@
           <a class="brand" href="/"><img src="{{STATIC_URL}}img/logo.png"></a>
           <ul class="nav">
             {% if user.is_authenticated %}
-            <li class="active"><a href="/courses">Groups</a></li>
+            <li><a href="/courses">Groups</a></li>
             <li><a href="/friends">Explore</a></li>
-            <li><a href="/account">Account</a></li>
+            <li class="active"><a href="/account">Account</a></li>
             {% endif %}
           </ul>
           <ul class="nav pull-right">

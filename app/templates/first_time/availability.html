@@ -21,12 +21,12 @@
       <tr>
          <td rowspan="2" class='time-label' width="12.5%">{{h}}</td>
          {% for d in days %}
-         <td class="time-cell day-{{d}} hour-{{h}} hour-whole" width="12.5%"></td>
+         <td class="time-cell day-{{d}} hour-{{h}} hour-whole" width="12.5%" id="day-{{d}}-hour-{{h}}-whole"></td>
          {% endfor %}
       </tr>
       <tr>
          {% for d in days %}
-         <td class="time-cell day-{{d}} hour-{{h}} hour-half" width="12.5%"></td>
+         <td class="time-cell day-{{d}} hour-{{h}} hour-half" width="12.5%" id="day-{{d}}-hour-{{h}}-half"></td>
          {% endfor %}
       </tr>
       {% endfor %}
@@ -41,24 +41,114 @@
 {% endblock %}
 {% block bottom_script %}
 <script>
-$(document).ready(function(){
-  var isMouseDown = false
-  var hours = [{% for h in hours %}'{{h}}'{% if not forloop.last %},{% endif %}{% endfor %}];
-  var days = [{% for d in days %}'{{d}}'{% if not forloop.last %},{% endif %}{% endfor %}];
 
+
+$(document).ready(function(){
+    var isMouseDown = false;
+    var isSelected = false;
+    var start;
+    var end;
+
+    var hours = [{% for h in hours %}'{{h}}'{% if not forloop.last %},{% endif %}{% endfor %}];
+    var days = [{% for d in days %}'{{d}}'{% if not forloop.last %},{% endif %}{% endfor %}];
+
+    function updateStates(){
+      var parts = start.split("-");
+      var startDay = parts[1];
+      var startHour = parts[3];
+      var startIsWhole = parts[4] == "whole";
+
+      parts = end.split("-");
+      var endDay = parts[1];
+      var endHour = parts[3];
+      var endIsWhole = parts[4] == "whole";
+
+      startDayIndex = days.indexOf(startDay);
+      endDayIndex = days.indexOf(endDay);
+      startHourIndex = hours.indexOf(startHour);
+      endHourIndex = hours.indexOf(endHour);
+
+      if(startDayIndex>endDayIndex){
+        var temp = endDayIndex;
+        endDayIndex = startDayIndex;
+        startDayIndex =temp;
+      }
+
+      if(startHourIndex>endHourIndex){
+        var temp = endHourIndex;
+        endHourIndex = startHourIndex;
+        startHourIndex = temp;
+
+        temp = endIsWhole;
+        endIsWhole = startIsWhole;
+        startIsWhole = temp;
+      }
+
+      if(startHourIndex==endHourIndex && startIsWhole!=endIsWhole){
+        startIsWhole = true;
+        endIsWhole = false;
+      }
+
+      $(".time-cell.temp-selected").each(function(){
+        $(this).removeClass('temp-selected');
+      });
+
+      $(".time-cell.temp-not-selected").each(function(){
+        $(this).removeClass('temp-not-selected');
+      });
+
+      for(var d=startDayIndex;d<=endDayIndex;d++){
+        for(var h=startHourIndex;h<=endHourIndex;h++){
+          if(!(h==startHourIndex && !startIsWhole)){
+            var whole = $(".time-cell.day-"+days[d]+".hour-"+hours[h]+".hour-whole")
+            if(isSelected){
+              whole.addClass('temp-selected');
+              whole.removeClass('temp-not-selected');
+            }else{
+              whole.removeClass('temp-selected');
+              whole.addClass('temp-not-selected');
+            }
+          }
+
+          if(!(h==endHourIndex && endIsWhole)){
+            var half = $(".time-cell.day-"+days[d]+".hour-"+hours[h]+".hour-half");
+            if(isSelected){
+              half.addClass('temp-selected');
+              half.removeClass('temp-not-selected');
+            }else{
+              half.removeClass('temp-selected');
+              half.addClass('temp-not-selected');
+            }
+          }
+        }
+      }
+    }
+  
     $('body').mousedown(function() {
         isMouseDown = true;
     })
     .mouseup(function() {
         isMouseDown = false;
+        $(".time-cell.temp-selected").each(function(){
+          $(this).removeClass('temp-selected');
+          $(this).addClass('selected');
+        });
+
+        $(".time-cell.temp-not-selected").each(function(){
+          $(this).removeClass('temp-not-selected');
+          $(this).removeClass('selected');
+        });
     });
 
    $('.time-cell').mouseover(function(e){
+      end = $(this).attr('id');
       if(isMouseDown){
-         $(this).toggleClass('selected');
+        updateStates();
       }
    }).mousedown(function() {
-        $(this).toggleClass('selected');
+        isSelected = !$(this).hasClass('selected');
+        start = $(this).attr('id');
+        updateStates();
     });
 
 
