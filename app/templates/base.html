@@ -3,19 +3,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>MOOC Social</title>
+    <title>After Class</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- Le styles -->
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-    </style>
     <link href="{{STATIC_URL}}css/main.css" rel="stylesheet">
     {% block top_styles %}
     {% endblock %}
@@ -31,10 +25,10 @@
 
   <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="/">MOOC Social</a>
+          <a class="brand" href="/"><img src="{{STATIC_URL}}img/logo.png"></a>
           <ul class="nav">
             {% if user.is_authenticated %}
             <li><a href="/courses">Courses</a></li>
@@ -67,7 +61,7 @@
       <hr>
 
       <footer>
-        <p>&copy; Reed La Botz</p>
+        <p>&copy; After Class</p>
       </footer>
 
     </div> <!-- /container -->

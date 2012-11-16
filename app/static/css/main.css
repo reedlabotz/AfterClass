@@ -1,3 +1,16 @@
+.navbar .container{
+  width: 940px;
+}
+
+.navbar-inner{
+  background: #e1e9f3;
+  height: 74px;
+
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+}
+
 .nav_name{
    height: 20px;
    line-height: 20px;

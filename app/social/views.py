@@ -1,15 +1,18 @@
+from app.accounts.forms import RegistrationFormNoUserName
+
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import redirect
 from app.social.forms import UserForm, UserProfileForm, UserAvailabilityForm, UserCourseForm
-
+from registration.views import register
 
 # Create your views here.
 def main(request):
    if request.user.is_authenticated():
       return redirect('/dashboard')
-   return render_to_response('main.html',{},context_instance=RequestContext(request))
+   else:
+      return register(request,'app.accounts.regbackend.Backend','/',RegistrationFormNoUserName)
 
 def dashboard(request):
    if request.user.first_name == "":
