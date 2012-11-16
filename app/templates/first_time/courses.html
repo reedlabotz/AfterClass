@@ -1,25 +1,30 @@
 {% extends "base.html" %}
 {% load bootstrap %}
 {% block content %}
-<h1>Step 3: Your Courses</h1>
-<p>To find you good partners we need to know what courses you are taking and why you are taking them.</p>
-<form class="well" method="post">
-  {% if courses %}
-  <h3>Current Courses</h3>
-  <ul>
-  {% for c in courses %}
-    <li>{{c}}</li>
-  {% endfor %}
-  </ul>
-  <hr>
-  {% endif %}
-  {{ user_course_form|bootstrap }}
-  {% csrf_token %}
-  <div class="control-group">
-    <div class="controls">
-      <button type="submit" name="add" value="true" class="btn">Add Another</button>
-      <button type="submit" class="btn btn-primary">Done</button>
-    </div>
+<div class="row">
+  <div class="span6">
+    <h1>Step 3:</h1>
+    <h2>Your Courses</h2>
+    <p>Ok one last thing. We want to find you people that are taking the same courses as you. So what courses are you taking?</p>
+    {% if courses %}
+    <h3>Current Courses</h3>
+    <ul>
+    {% for c in courses %}
+      <li>{{c}}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
   </div>
-</form>
+  <div class="span6">
+    <form class="well form-horizontal" method="post">
+      {{ user_course_form|bootstrap }}
+      {% csrf_token %}
+      <div class="control-group">
+        <div class="controls">
+          <button type="submit" name="add" value="true" class="btn">Add Course</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}

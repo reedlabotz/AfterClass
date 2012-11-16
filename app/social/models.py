@@ -2,17 +2,130 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
-PERSON_TYPE_CHOICES = (('h','Highschool Student'),('u','Undergraduate Student'),('g','Graduate Student'),('p','Professional'),('r','Retired'),('o','Other'))
+PERSON_AGE_RANGE_CHOICES = (
+   ('1','10-19'),
+   ('2','20-29'),
+   ('3','30-39'),
+   ('4','40-49'),
+   ('5','50-59'),
+   ('6','60-69'),
+   ('7','70-79'),
+   ('8','80+')
+)
 
-COURSE_SERVICE_CHOICES = (('u','Udacity'),('c','Coursera'),('e','edX'))
+PERSON_GENDER_CHOICES = (
+   ('m','Male'),
+   ('f','Female')
+)
 
-EXPERT_LEVEL_CHOICES = (('f','First Timer'),('h','Hobbiest'),('u','Undergraduate Student'),('g','Graduate Student'),('p','Professional'),('o','Other'))
+PERSON_TYPE_CHOICES = (
+   ('h','Highschool Student'),
+   ('u','Undergraduate Student'),
+   ('g','Graduate Student'),
+   ('a','Academic'),
+   ('p','Professional'),
+   ('o','Other')
+)
 
-EXPERT_TIME_CHOICES = (('0','<1 year'),('1','1-2 years'),('2','2-5 years'),('5','>5 years'))
+PERSON_LEARNING_STYLE_CHOICES = (
+   ('v','Visual'),
+   ('a','Auditory'),
+   ('t','Tactile')
+)
 
-NOVICE_INTERMEDIATE_EXPERT = (('n','Novice'),('i','Intermediate'),('e','Expert'))
+PERSON_INTEREST_CHOICES = (
+   ('Agr','Agriculture'),
+   ('Ant','Anthropology'),
+   ('Arc','Archaeology'),
+   ('Arc','Architecture and Design'),
+   ('Are','Area studies'),
+   ('Bus','Business'),
+   ('Che','Chemistry'),
+   ('Com','Computer sciences'),
+   ('Cul','Cultural and ethnic studies'),
+   ('Div','Divinity'),
+   ('Ear','Earth sciences'),
+   ('Eco','Economics'),
+   ('Edu','Education'),
+   ('Eng','Engineering'),
+   ('Env','Environmental studies and Forestry'),
+   ('Fam','Family and consumer science'),
+   ('Gen','Gender and sexuality studies'),
+   ('Geo','Geography'),
+   ('Hea','Health science'),
+   ('His','History'),
+   ('Hum','Human physical performance and recreation*'),
+   ('Jou','Journalism, media studies and communication'),
+   ('Law','Law'),
+   ('Lib','Library and museum studies'),
+   ('Lif','Life sciences'),
+   ('Lin','Linguistics'),
+   ('Lit','Literature'),
+   ('Log','Logic'),
+   ('Mat','Mathematics'),
+   ('Mil','Military sciences'),
+   ('Per','Performing arts'),
+   ('Phi','Philosophy'),
+   ('Phy','Physics'),
+   ('Pol','Political science'),
+   ('Psy','Psychology'),
+   ('Pub','Public administration'),
+   ('Rel','Religion'),
+   ('Soc','Social work'),
+   ('Soc','Sociology'),
+   ('Spa','Space science'),
+   ('Sta','Statistics'),
+   ('Sys','Systems science'),
+   ('Tra','Transportation'),
+   ('Vis','Visual arts'),
+   ('Oth','Other')
+)
 
-REASON_CHOICES = (('n','Interest in new topic'),('r','Refresher on topic'),('o','Other'))
+COURSE_SERVICE_CHOICES = (
+   ('u','Udacity'),
+   ('c','Coursera'),
+   ('e','edX')
+)
+
+USER_COURSE_EXPERIENCE_CHOICES = (
+   ('f','First Timer'),
+   ('h','Hobbiest'),
+   ('u','Undergraduate Student'),
+   ('g','Graduate Student'),
+   ('a','Academic'),
+   ('p','Professional'),
+   ('o','Other')
+)
+
+USER_COURSE_LEVEL_CHOICES = (
+   ('n','Novice'),
+   ('i','Intermediate'),
+   ('e','Expert')
+)
+
+USER_COURSE_YEARS_CHOICES = (
+   ('0','<1 year'),
+   ('1','1-2 years'),
+   ('2','2-5 years'),
+   ('5','>5 years')
+)
+
+USER_COURSE_REASON_CHOICES = (
+   ('n','Interest in new topic'),
+   ('r','Refresher on topic'),
+   ('o','Other')
+)
+
+USER_COURSE_CREDIT_CHOICES = (
+   ('y','Yes'),
+   ('n','No')
+)
+
+USER_COURSE_GOAL_CHOICES = (
+   ('g','Get a new job'),
+   ('e','Gain experience in this topic'),
+   ('o','Other')
+)
 
 
 class Course(models.Model):
@@ -30,15 +143,35 @@ class Course(models.Model):
 
 class UserProfile(models.Model):
    user = models.OneToOneField(User, primary_key=True)
-   person_type = models.CharField(max_length=1,choices=PERSON_TYPE_CHOICES,verbose_name="What best describes you")
+   age = models.CharField(
+      max_length=1,
+      choices=PERSON_AGE_RANGE_CHOICES,
+      verbose_name="What is your age?")
+   gender = models.CharField(
+      max_length=1,
+      choices=PERSON_GENDER_CHOICES,
+      verbose_name="What is your gender?")
+   person_type = models.CharField(
+      max_length=1,
+      choices=PERSON_TYPE_CHOICES,
+      verbose_name="Which best describes you?")
+   learning_style = models.CharField(
+      max_length=1,
+      choices=PERSON_LEARNING_STYLE_CHOICES,
+      verbose_name="Which learning style best describes you?")
+   interest = models.CharField(
+      max_length=3,
+      choices=PERSON_INTEREST_CHOICES,
+      verbose_name="What is your area of interest?")
+   monday_availability = models.CharField(max_length=48)
+   tuesday_availability = models.CharField(max_length=48)
+   wednesday_availability = models.CharField(max_length=48)
+   thursday_availability = models.CharField(max_length=48)
+   friday_availability = models.CharField(max_length=48)
+   saturday_availability = models.CharField(max_length=48)
+   sunday_availability = models.CharField(max_length=48)
+
    courses = models.ManyToManyField(Course,through='UserCourse')
-   monday_availability = models.CharField(max_length=32)
-   tuesday_availability = models.CharField(max_length=32)
-   wednesday_availability = models.CharField(max_length=32)
-   thursday_availability = models.CharField(max_length=32)
-   friday_availability = models.CharField(max_length=32)
-   saturday_availability = models.CharField(max_length=32)
-   sunday_availability = models.CharField(max_length=32)
 
 def createUserProfile(sender, instance, **kwargs):
     """Create a UserProfile object each time a User is created ; and link it.
@@ -50,12 +183,39 @@ post_save.connect(createUserProfile, sender=User)
 class UserCourse(models.Model):
    user = models.ForeignKey(UserProfile)
    course = models.ForeignKey(Course)
-   expert_level = models.CharField(max_length=1,choices=EXPERT_LEVEL_CHOICES,verbose_name="What is your expertise in the area")
-   expert_time = models.CharField(max_length=1,choices=EXPERT_TIME_CHOICES,verbose_name="How long have you worked in this area")
-   general_level = models.CharField(max_length=1,choices=NOVICE_INTERMEDIATE_EXPERT,verbose_name="What is your level in this general area")
-   specific_level = models.CharField(max_length=1,choices=NOVICE_INTERMEDIATE_EXPERT,verbose_name="What is your level in this specific area")
-   reason = models.CharField(max_length=1,choices=REASON_CHOICES,verbose_name="Why are you taking this course")
-
+   general_experience = models.CharField(
+      max_length=1,
+      choices=USER_COURSE_EXPERIENCE_CHOICES,
+      verbose_name="What is your expertise in this general area?")
+   general_level = models.CharField(
+      max_length=1,
+      choices=USER_COURSE_LEVEL_CHOICES,
+      verbose_name="What is your level for this general area of study?")
+   topic_experience = models.CharField(
+      max_length=1,
+      choices=USER_COURSE_EXPERIENCE_CHOICES,
+      verbose_name="What is your expertise in this topic?")
+   topic_level = models.CharField(
+      max_length=1,
+      choices=USER_COURSE_LEVEL_CHOICES,
+      verbose_name="What is your level for this topic?")
+   years_experience = models.CharField(
+      max_length=1,
+      choices=USER_COURSE_YEARS_CHOICES,
+      verbose_name="How many years of experience do you have in this area?")
+   reason = models.CharField(
+      max_length=1,
+      choices=USER_COURSE_REASON_CHOICES,
+      verbose_name="Why are you taking this course?")
+   credit = models.CharField(
+      max_length=1,
+      choices=USER_COURSE_CREDIT_CHOICES,
+      verbose_name="Are you taking this course for credit at any academic institution?")
+   goals = models.CharField(
+      max_length=1,
+      choices=USER_COURSE_GOAL_CHOICES,
+      verbose_name="What is your primary goal from taking this course?")
+   
    class Meta:
       unique_together = ("user", "course")
    

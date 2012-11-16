@@ -1,16 +1,23 @@
 {% extends "base.html" %}
 {% load bootstrap %}
 {% block content %}
-<h1>Step 1: Personal Information</h1>
-<p>To help me find you a good match please give me some personal information.</p>
-<form class="well" method="post">
-  {% csrf_token %}
-  {{ user_form|bootstrap }}
-  {{ user_profile_form|bootstrap }}
-  <div class="control-group">
-    <div class="controls">
-      <button type="submit" class="btn btn-primary">Next</button>
-    </div>
-  </div>
-</form>
+<div class="row">
+   <div class="span6">
+      <h1>Step 1:</h1>
+      <h2>Personal Information</h2>
+      <p>Our number one goal is to help you find social groups that will help you succeed in your online courses. To do that we need to know a little more about who you are and how you learn. We will use this data to find people who are similar to you and will work well with you.</p>
+   </div>
+   <div class="span6">
+      <form class="well form-horizontal" method="post">
+        {% csrf_token %}
+        {{ user_form|bootstrap }}
+        {{ user_profile_form|bootstrap }}
+        <div class="control-group">
+          <div class="controls">
+            <button type="submit" class="btn btn-primary">Next</button>
+          </div>
+        </div>
+      </form>
+   </div>
+</div>
 {% endblock %}

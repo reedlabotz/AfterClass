@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 class UserProfileForm(ModelForm):
    class Meta:
       model = UserProfile
-      fields = ['person_type']
-      required = ['person_type']
+      fields = ['age','gender','person_type','learning_style','interest']
+      required = fields
 
 class UserForm(ModelForm):
    def __init__(self, *args, **kwargs):

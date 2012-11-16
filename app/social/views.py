@@ -76,4 +76,7 @@ def friends(request):
 
 def account(request):
    return render_to_response('main.html',{},context_instance=RequestContext(request))
+
+def error(request):
+   return render_to_response('500.html',{},context_instance=RequestContext(request))
    

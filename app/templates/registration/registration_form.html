@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 {% load bootstrap %}
+{% block login %}
+<li>
+  <form class="form-inline" action="/login/" method="post">
+    {% csrf_token %}
+    <input type="text" name="username" class="input-medium" placeholder="Email">
+    <input type="password" name="password" class="input-medium" placeholder="Password">
+    <button type="submit" class="btn">Login</button>
+  </form>
+</li>
+{% endblock %}
 {% block content %}
 <div class="row">
    <div class="span6">

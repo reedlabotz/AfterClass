@@ -9,6 +9,24 @@
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
+
+  border-left: none;
+  border-top: none;
+  border-right: none;
+}
+
+.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
+  background: transparent url('../img/sliderarrow.svg') no-repeat center bottom;
+
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+
+  height: 25px;
 }
 
 .nav_name{
@@ -18,8 +36,16 @@
    padding-top: 10px;
 }
 
+.navbar .nav{
+  margin-top: 33px;
+} 
+
+.navbar .btn, .navbar .btn-group{
+  margin-top: 0;
+}
+
 .time-cell.selected{
-   background: #D9EDF7;
+   background: #E1E9F3;
 }
 
 .time-table{
