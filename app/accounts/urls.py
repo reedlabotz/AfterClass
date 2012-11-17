@@ -6,10 +6,12 @@ from registration.views import register
 
 
 urlpatterns = patterns('',
-                       
-                       url(r'^register/closed/$',
-                           direct_to_template,
-                           {'template': 'registration/registration_closed.html'},
-                           name='registration_disallowed'),
-                       (r'', include('registration.auth_urls')),
-                       )
+   url(r'^register/closed/$',
+      direct_to_template,
+      {'template': 'registration/registration_closed.html'},
+      name='registration_disallowed'),
+   (r'^logout/$', 'django.contrib.auth.views.logout',
+                          {'next_page': '/'}),
+   (r'', include('registration.auth_urls')),
+   #(r'^account/$','app.accounts.views.main'),
+)

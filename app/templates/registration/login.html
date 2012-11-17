@@ -1,16 +1,21 @@
 {% extends "base.html" %}
 {% load bootstrap %}
 {% block content %}
-<form class="well" method="post">
-  {% csrf_token %}
-  {{ form|bootstrap }}
-  <div class="control-group">
-    <div class="controls">
-      <input type="hidden" name="next" value="{{ next }}" />
-      <button type="submit" class="btn btn-primary">Login</button>
-    </div>
-  </div>
-</form>
+<div class="row">
+   <div class="span6 offset3">
+      <form class="well form-horizontal" method="post">
+         <legend>Login</legend>
+        {% csrf_token %}
+        {{ form|bootstrap }}
+        <div class="control-group">
+          <div class="controls">
+            <input type="hidden" name="next" value="{{ next }}" />
+            <button type="submit" class="btn btn-primary">Login</button>
+          </div>
+        </div>
+      </form>
+   </div>
+</div>
 {% endblock %}
 {% block bottom_script %}
 <script>

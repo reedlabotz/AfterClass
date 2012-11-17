@@ -44,6 +44,10 @@
   margin-top: 0;
 }
 
+.navbar .nav li.dropdown.open > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.open.active > .dropdown-toggle{
+  background: transparent;
+}
+
 .table-bordered td.time-cell{
   padding: 0;
   height: 10px;

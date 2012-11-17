@@ -7,20 +7,12 @@ import settings
 
 urlpatterns = patterns('',
    url(r'^$', 'app.social.views.main'),
-   url(r'^dashboard/$','app.social.views.dashboard'),
-   url(r'^courses/$','app.social.views.dashboard'),
-   url(r'^friends/$','app.social.views.friends'),
 
-   url(r'^account/$','app.social.views.account'),
-
-   ## first time
-   url(r'^dashboard/first/$','app.social.views.first_time'),
-   url(r'^dashboard/first/account/$','app.social.views.first_time_account'),
-   url(r'^dashboard/first/availability/$','app.social.views.first_time_availability'),
-   url(r'^dashboard/first/courses/$','app.social.views.first_time_courses'),
+   ## social app
+   url(r'', include('app.social.urls')),
 
    ## registration
-   url(r'^', include('app.accounts.urls')),
+   url(r'', include('app.accounts.urls')),
 )
 
 handler500 = 'app.social.views.error'

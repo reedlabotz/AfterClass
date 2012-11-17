@@ -96,14 +96,6 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'app.utils.http.Http403Middleware',
-    'app.utils.loginmiddleware.RequireLoginMiddleware',
-)
-
-LOGIN_REQUIRED_URLS = (
-  r'/dashboard/.*$',
-  r'/courses/.*$',
-  r'/friends/.*$',
-  r'/account/.*$',
 )
 
 ROOT_URLCONF = 'app.urls'
