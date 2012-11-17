@@ -6,7 +6,8 @@ from django.template import RequestContext
 from django.shortcuts import redirect
 from app.social.forms import UserForm, UserProfileForm, UserAvailabilityForm, UserCourseForm
 from registration.views import register
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,user_passes_test
+from app.social.helper import isWelcome
 
 # Create your views here.
 def main(request):
@@ -16,14 +17,17 @@ def main(request):
       return register(request,'app.accounts.regbackend.Backend','/',RegistrationFormNoUserName)
 
 @login_required
+@user_passes_test(isWelcome, login_url='/welcome')
 def groups(request):
    return render_to_response('main.html',{'page':'groups'},context_instance=RequestContext(request))
 
 @login_required
+@user_passes_test(isWelcome, login_url='/welcome')
 def explore(request):
    return render_to_response('main.html',{'page':'explore'},context_instance=RequestContext(request))
 
 @login_required
+@user_passes_test(isWelcome, login_url='/welcome')
 def courses(request):
    courses = request.user.get_profile().courses.all()
    user_course_form = UserCourseForm()
@@ -44,6 +48,11 @@ def courses(request):
 
 
 ### Welcome views ###
+@login_required
+def welcome(request):
+   if len(request.user.first_name) > 0:
+      return redirect('/welcome/availability')
+   return redirect('/welcome/account')
 
 @login_required
 def welcome_account(request):

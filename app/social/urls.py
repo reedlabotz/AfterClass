@@ -8,6 +8,7 @@ urlpatterns = patterns('',
    url(r'^courses/$','app.social.views.courses'),
 
    ## first time
+   url(r'^welcome$','app.social.views.welcome'),
    url(r'^welcome/account/$','app.social.views.welcome_account'),
    url(r'^welcome/availability/$','app.social.views.welcome_availability'),
 )
