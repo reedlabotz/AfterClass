@@ -6,9 +6,11 @@ urlpatterns = patterns('',
    url(r'^groups/$','app.social.views.groups'),
    url(r'^explore/$','app.social.views.explore'),
    url(r'^courses/$','app.social.views.courses'),
+   url(r'^courses/add/$','app.social.views.courses_add'),
+   url(r'^courses/drop/(?P<id>\d+)/$','app.social.views.courses_drop'),
 
    ## first time
-   url(r'^welcome$','app.social.views.welcome'),
+   url(r'^welcome/$','app.social.views.welcome'),
    url(r'^welcome/account/$','app.social.views.welcome_account'),
    url(r'^welcome/availability/$','app.social.views.welcome_availability'),
 )

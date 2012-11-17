@@ -3,10 +3,12 @@ from app.accounts.forms import RegistrationFormNoUserName
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.template import RequestContext
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from app.social.forms import UserForm, UserProfileForm, UserAvailabilityForm, UserCourseForm
 from registration.views import register
 from django.contrib.auth.decorators import login_required,user_passes_test
+from django.contrib import messages
+
 from app.social.helper import isWelcome
 
 # Create your views here.
@@ -29,7 +31,12 @@ def explore(request):
 @login_required
 @user_passes_test(isWelcome, login_url='/welcome')
 def courses(request):
-   courses = request.user.get_profile().courses.all()
+   courses = request.user.get_profile().usercourse_set.all()
+   return render_to_response('courses.html',{'page':'courses','courses':courses},context_instance=RequestContext(request))
+
+@login_required
+@user_passes_test(isWelcome, login_url='/welcome')
+def courses_add(request):
    user_course_form = UserCourseForm()
    if request.POST:
       user_course_form = UserCourseForm(request.POST)
@@ -37,14 +44,17 @@ def courses(request):
          user_course = user_course_form.save(commit=False)
          user_course.user = request.user.get_profile()
          user_course.save()
-         if request.POST.get('add'):
-            user_course_form = UserCourseForm()
-            courses = request.user.get_profile().courses.all()
-         else:
-            return redirect('/dashboard')
-      elif courses.count() > 0 and len(user_course_form.errors.items())== 6:
-         return redirect('/dashboard')
-   return render_to_response('main.html',{'page':'courses','courses':courses,'user_course_form':user_course_form},context_instance=RequestContext(request))
+         return redirect('/courses')
+   return render_to_response('courses_add.html',{'page':'courses','user_course_form':user_course_form},context_instance=RequestContext(request))
+
+@login_required
+@user_passes_test(isWelcome, login_url='/welcome')
+def courses_drop(request,id):
+   course = get_object_or_404(request.user.get_profile().usercourse_set, id=id)
+   course.delete()
+   messages.add_message(request, messages.SUCCESS, "Course dropped.")
+   return redirect('/courses')
+
 
 
 ### Welcome views ###

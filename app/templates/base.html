@@ -9,6 +9,7 @@
 
     <!-- Le styles -->
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}css/font-awesome.css" rel="stylesheet">
     <link href="{{STATIC_URL}}css/main.css" rel="stylesheet">
     {% block top_styles %}
     {% endblock %}
@@ -57,7 +58,7 @@
     <div class="container">
       {% if messages %}
         {% for message in messages %}
-          <div class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message }}  </div>
+          <div class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message }}</div>
         {% endfor %}
       {% endif %}
       {% block content %}
