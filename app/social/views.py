@@ -8,6 +8,7 @@ from app.social.forms import UserForm, UserProfileForm, UserAvailabilityForm, Us
 from registration.views import register
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib import messages
+from app.social.models import UserProfile
 
 from app.social.helper import isWelcome
 
@@ -26,7 +27,12 @@ def groups(request):
 @login_required
 @user_passes_test(isWelcome, login_url='/welcome')
 def explore(request):
-   return render_to_response('main.html',{'page':'explore'},context_instance=RequestContext(request))
+   profiles = UserProfile.objects.all()
+   people = {}
+   for p in profiles:
+      people[p] = p.distance(request.user)
+   print people
+   return render_to_response('explore.html',{'page':'explore','people':people},context_instance=RequestContext(request))
 
 @login_required
 @user_passes_test(isWelcome, login_url='/welcome')

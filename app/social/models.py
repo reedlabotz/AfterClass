@@ -173,6 +173,22 @@ class UserProfile(models.Model):
 
    courses = models.ManyToManyField(Course,through='UserCourse')
 
+   def distance(self,user):
+      max_score = 5
+      score = 0
+      other = user.get_profile()
+      if self.age == other.age:
+         score += 1
+      if self.gender == other.gender:
+         score += 1
+      if self.person_type == other.person_type:
+         score += 1
+      if self.learning_style == other.learning_style:
+         score += 1
+      if self.interest == other.interest:
+         score += 1
+      return max_score - score
+
 def createUserProfile(sender, instance, **kwargs):
     """Create a UserProfile object each time a User is created ; and link it.
     """
