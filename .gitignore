@@ -3,3 +3,5 @@
 *.pyc
 local_settings.py
 env/
+*.sublime-project
+*.sublime-workspace

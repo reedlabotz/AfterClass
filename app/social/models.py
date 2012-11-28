@@ -218,4 +218,26 @@ class UserCourse(models.Model):
    
    class Meta:
       unique_together = ("user", "course")
-   
+
+class Circle(models.Model):
+   course = models.ForeignKey(Course)
+   users = models.ManyToManyField(User,through='CircleUser')
+   requests = models.ManyToManyField(User,through='CircleRequest',related_name='request')
+   public = models.BooleanField(default=False)
+
+class CircleUser(models.Model):
+   circle = models.ForeignKey(Circle)
+   user = models.ForeignKey(User)
+   joined = models.DateTimeField(null=True)
+
+class CircleRequest(models.Model):
+   circle = models.ForeignKey(Circle)
+   user = models.ForeignKey(User,related_name='requester')
+   created = models.DateTimeField(auto_now=True)
+   confirmed = models.ManyToManyField(User)
+
+class CircleSuggestion(models.Model):
+   course = models.ForeignKey(Course)
+   users = models.ManyToManyField(User)
+   confirmed = models.ManyToManyField(User,related_name='confirmer')
+   deleted = models.BooleanField()

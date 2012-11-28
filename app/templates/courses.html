@@ -12,14 +12,20 @@
                <div class="service">{{c.course.get_service_display}}</div>
                <div class="title">{{c.course.name}}</div>
                <div class="homepage"><a href="{{c.course.url}}">Homepage</a></div>
-               <div class="options"><a href="/courses/drop/{{c.id}}"><i class="icon-trash"></i> Drop this course</a></div>
+               <div class="options"><a href="/courses/drop/{{c.id}}" class="btn"><i class="icon-trash"></i> Drop this course</a></div>
             </div>
          </li>
       
       {% endfor %}
       </ul>
       {% else %}
-      <p>It looks like you haven't told us about any classes you are taking yet. Why don't you <a href="/courses/add">add one now</a>?
+      <p>
+         It looks like you haven't told us about any classes you are taking yet.
+      </p>
+      <p>
+         Why don't you <a href="/courses/add">add one now</a>?
+      </p>
+         
       {% endif %}
    </div>
 </div>

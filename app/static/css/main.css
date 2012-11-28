@@ -48,6 +48,12 @@
   background: transparent;
 }
 
+.dropdown-menu li > a:hover, .dropdown-menu li > a:focus, .dropdown-submenu:hover > a {
+  background-color: #e1e9f3;
+  color: #000;
+  background-image: none;
+}
+
 .table-bordered td.time-cell{
   padding: 0;
   height: 10px;
