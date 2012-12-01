@@ -28,9 +28,19 @@ Coursera has additionally teamed up with the website MeetUp which allows student
 
 ## Collaboration Ready
 
+In order for groups to be successful, it is important to ensure that the members of the group are prepared to collaborate well together.
+
 
 ## Toward a Social MOOC
 
-In order to create a social environment for students in a MOOC we have created a system that acts to assist students in find a social group within courses they are taking. These social groups are encouraged to use existing digital interaction systems such as skype or Google hangouts to meet with each other one or more times a week throughout the course. 
+After Class is an organized system that helps students enrolled in massive online classes find other students and student groups to socialize with. In order to help facilitate group formation students must fill out a short survey when they first sign up for the service. The first section of the survey asks about personal and demographic information. This information will allow students to better filter potential study-buddies based on who they believe they will work best with. 
 
-We have chosen to create smaller groups to encourage more intimate social interaction and provide social incentives to reduce dropout rates. To form groups we use a questionnaire that asks about the motivations and interests of a student when taking a MOOC. 
+![Personal and demographic information screen](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/welcome-step-1.png)
+
+One of the great features of a MOOC is the flexibility it offers to fit in to busy schedules and allow students from anywhere in the world to take the course, this does however mean that students enrolled in the same class might have drastically different schedules. To account for this students are also asked to select times when they are generally available from a week calendar. During the group finding process only those students that share one or more available blocks in common will be recommended to become study buddies.
+ 
+![Availability screen](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/welcome-step-2.png)
+
+One students have completed the personal information and availability surveys they are asked to add all of the massive online courses they are enrolled in. When adding each course they are asked about their background and reasons for taking the course. We ask both about their experience in the general area of study and the specific topic to better understand their level with the material of the course. All questions are phrased in such a way that they can apply to any area of study that might be available through on of the online course providers. 
+
+![Add course screen](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/add-course.png)
