@@ -19,7 +19,9 @@ Although MOOCs began in technical areas, they have now spread to many different 
 ## Motivation
 
 Social interaction plays a large role in the current on campus educational system. Many of the most important lessons and discussions happen outside of class in coffee shops, office hours, and dorm rooms. Similar interactions could play an important role in online courses as well giving students a sense of community, a chance to form meaningful study groups or groups for projects, and allow for other social interactions that lead to a better learning experience. One aspect of social interaction that becomes especially important in online courses is the sense of community that it offers, allowing students to realize they are not alone in the class, and therefore have an outlet to discuss problems or lack of understanding with other students.
-Existing Solutions
+
+
+## Existing Solutions
 
 All MOOC systems have created some system for allowing students to interact amongst themselves or with course staff. Both Udacity and Coursera have Q&A style forums that allow students to ask questions and vote on the best answer, this system however limits the amount of discussion that can happen on a topic. For some of the more discussion based courses in the humanities, Coursera has set up live webcasts of panel discussions on topics several times throughout the course. These discussions are moderated and often allow students to either submit questions electronically or wait in a queue to have a chance to join the webcast. 
 
