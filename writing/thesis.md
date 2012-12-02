@@ -35,7 +35,12 @@ In order for groups to be successful, it is important to ensure that the members
 
 ## Toward a Social MOOC
 
-After Class is an organized system that helps students enrolled in massive online classes find other students and student groups to socialize with. In order to help facilitate group formation students must fill out a short survey when they first sign up for the service. The first section of the survey asks about personal and demographic information. This information will allow students to better filter potential study-buddies based on who they believe they will work best with. 
+After Class is an organized system that helps students enrolled in massive online classes find other students and student groups to socialize with. 
+
+
+### Getting user information
+
+In order to help facilitate group formation students must fill out a short survey when they first sign up for the service. The first section of the survey asks about personal and demographic information. This information will allow students to better filter potential study-buddies based on who they believe they will work best with. 
 
 ![Personal and demographic information screen](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/welcome-step-1.png)
 
@@ -46,3 +51,19 @@ One of the great features of a MOOC is the flexibility it offers to fit in to bu
 One students have completed the personal information and availability surveys they are asked to add all of the massive online courses they are enrolled in. When adding each course they are asked about their background and reasons for taking the course. We ask both about their experience in the general area of study and the specific topic to better understand their level with the material of the course. All questions are phrased in such a way that they can apply to any area of study that might be available through on of the online course providers. 
 
 ![Add course screen](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/add-course.png)
+
+
+### Helping users find circles
+
+
+### Interacting with a circle
+
+
+### Future features
+
+Although the main focus of this project is to find groups for online interaction, the same system could also assist students to find groups for in person meet-ups. This has the benefit over the current solution offered by MOOC providers of having all the meta data about students in the class allowing people to only join meet-ups which will be productive.
+
+
+## Future Research
+
+The next step in this project will be to get a field trial with real students. To be able to test the efficacy of the system in finding productive groups students would need to be asked an extra survey about their previous experience in MOOCs as well as surveys about how much they enjoy the meetings they have with their groups, and if the groups added to their enjoyment or learning in the course.
