@@ -7,6 +7,7 @@ from django.shortcuts import redirect, get_object_or_404
 from app.social.forms import UserForm, UserProfileForm, UserAvailabilityForm, UserCourseForm
 from registration.views import register
 from django.contrib.auth.decorators import login_required,user_passes_test
+from django.views.decorators.http import require_POST
 from django.contrib import messages
 from app.social.models import UserProfile
 
@@ -26,13 +27,23 @@ def groups(request):
 
 @login_required
 @user_passes_test(isWelcome, login_url='/welcome')
+@require_POST
+def groups_create(request):
+   user = request.POST.get('user_id');
+   return render_to_response('main.html',{'page':'groups'},context_instance=RequestContext(request))
+
+@login_required
+@user_passes_test(isWelcome, login_url='/welcome')
 def explore(request):
-   profiles = UserProfile.objects.all()
-   people = {}
-   for p in profiles:
-      people[p] = p.distance(request.user)
-   print people
-   return render_to_response('explore.html',{'page':'explore','people':people},context_instance=RequestContext(request))
+   courses = request.user.get_profile().usercourse_set.all()
+   return render_to_response('explore.html',{'page':'explore','courses':courses},context_instance=RequestContext(request))
+
+@login_required
+@user_passes_test(isWelcome, login_url='/welcome')
+def explore_course(request,id):
+   usercourse = get_object_or_404(request.user.get_profile().usercourse_set,id=id)
+   people = usercourse.course.usercourse_set.all()
+   return render_to_response('explore_course.html',{'page':'explore','people':people,'course':usercourse},context_instance=RequestContext(request))
 
 @login_required
 @user_passes_test(isWelcome, login_url='/welcome')
