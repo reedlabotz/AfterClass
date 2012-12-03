@@ -5,11 +5,16 @@ from django.http import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import redirect, get_object_or_404
 from app.social.forms import UserForm, UserProfileForm, UserAvailabilityForm, UserCourseForm
-from registration.views import register
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.views.decorators.http import require_POST
 from django.contrib import messages
-from app.social.models import UserProfile
+from django.forms.util import ErrorList
+from django.db import IntegrityError
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from registration.views import register
+
+from app.social.models import UserProfile, UserCourse
 
 from app.social.helper import isWelcome
 
@@ -42,8 +47,27 @@ def explore(request):
 @user_passes_test(isWelcome, login_url='/welcome')
 def explore_course(request,id):
    usercourse = get_object_or_404(request.user.get_profile().usercourse_set,id=id)
-   people = usercourse.course.usercourse_set.all()
-   return render_to_response('explore_course.html',{'page':'explore','people':people,'course':usercourse},context_instance=RequestContext(request))
+   course = usercourse.course
+   people = course.usercourse_set.exclude(user=request.user)
+   paginator = Paginator(people, 25)
+
+   page = request.GET.get('page')
+   try:
+      people = paginator.page(page)
+   except PageNotAnInteger:
+      # If page is not an integer, deliver first page.
+      people = paginator.page(1)
+   except EmptyPage:
+      # If page is out of range (e.g. 9999), deliver last page of results.
+      people = paginator.page(paginator.num_pages)
+
+   return render_to_response('explore_course.html',{
+      'page':'explore',
+      'profile': request.user.get_profile(),
+      'people':people,
+      'course':usercourse,
+      'usercourse':usercourse
+      },context_instance=RequestContext(request))
 
 @login_required
 @user_passes_test(isWelcome, login_url='/welcome')
@@ -60,18 +84,23 @@ def courses_add(request):
       if user_course_form.is_valid():
          user_course = user_course_form.save(commit=False)
          user_course.user = request.user.get_profile()
-         user_course.save()
-         return redirect('/courses')
+         try:
+            user_course.save()
+            messages.add_message(request, messages.SUCCESS, "Course Added.")
+            return redirect('/courses')
+         except IntegrityError: 
+            user_course_form._errors["course"] = ErrorList([u'You are already enrolled in that course'])
    return render_to_response('courses_add.html',{'page':'courses','user_course_form':user_course_form},context_instance=RequestContext(request))
 
 @login_required
 @user_passes_test(isWelcome, login_url='/welcome')
-def courses_drop(request,id):
+@require_POST
+def courses_drop(request):
+   id = request.POST.get('usercourse_id')
    course = get_object_or_404(request.user.get_profile().usercourse_set, id=id)
    course.delete()
    messages.add_message(request, messages.SUCCESS, "Course dropped.")
    return redirect('/courses')
-
 
 
 ### Welcome views ###

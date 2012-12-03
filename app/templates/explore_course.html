@@ -1,20 +1,58 @@
 {% extends "base.html" %}
+{% load bootstrap_pagination %}
+{% load availability_check %}
 {% block content %}
 <p>Find groups for your course <strong>{{course.course}}</strong></p>
 <div class="row">
   <div class="span4">
-    <div id="graph"></div>
+    <div id="graph" data-spy="affix" data-offset-top="100" style="top: 0px;"></div>
   </div>
-  <div class="span8" id="user-holder"></div>
+  <div class="span8">
+    <div id="user-holder"></div>
+    {% bootstrap_paginate people range=10 %}
+  </div>
 </div>
+
 {% endblock %}
 {% block bottom_script %}
 <script src="{{STATIC_URL}}js/d3.v2.min.js"></script>
 
 <script type="text/javascript">
+var user = {
+  'age': '{{profile.get_age_display}}',
+  'gender': '{{profile.get_gender_display}}',
+  'person_type': '{{profile.get_person_type_display}}',
+  'learning_style': '{{profile.get_learning_style_display}}',
+  'interest': '{{profile.get_interest_display}}',
+  'general_experience': '{{usercourse.get_general_experience_display}}',
+  'general_level': '{{usercourse.get_general_level_display}}',
+  'topic_experience': '{{usercourse.get_topic_experience_display}}',
+  'topic_level': '{{usercourse.get_topic_level_display}}',
+  'years_experience': '{{usercourse.get_years_experience_display}}',
+  'reason': '{{usercourse.get_reason_display}}',
+  'credit': '{{usercourse.get_credit_display}}',
+  'goals': '{{usercourse.get_goals_display}}'
+};
+
 var people = [
   {% for p in people %}
-  {'id': {{p.user.user.id}}}{% if not forloop.last %},{% endif %}
+  {
+    'id': {{p.user.user.id}},
+    'age': '{{p.user.get_age_display}}',
+    'gender': '{{p.user.get_gender_display}}',
+    'person_type': '{{p.user.get_person_type_display}}',
+    'learning_style': '{{p.user.get_learning_style_display}}',
+    'interest': '{{p.user.get_interest_display}}',
+    'availability': {% availability_check p.user profile %},
+    'general_experience': '{{p.get_general_experience_display}}',
+    'general_level': '{{p.get_general_level_display}}',
+    'topic_experience': '{{p.get_topic_experience_display}}',
+    'topic_level': '{{p.get_topic_level_display}}',
+    'years_experience': '{{p.get_years_experience_display}}',
+    'reason': '{{p.get_reason_display}}',
+    'credit': '{{p.get_credit_display}}',
+    'goals': '{{p.get_goals_display}}'
+  }{% if not forloop.last %},{% endif %}
   {% endfor %}
 ];
 
@@ -24,15 +62,21 @@ var h = 300,
 var nodes = people,
     color = d3.scale.category10();
 
+var root = {
+  x: 142, 
+  y: 142, 
+  color: '#000', 
+  charge: -10,
+  radius: 8,
+  fixed: true
+};
+nodes.push(root);
+
 var force = d3.layout.force()
-    .gravity(0.01)
-    .charge(function(d, i) { return (d.score+1)*2; })
+    .gravity(0.005)
+    .charge(function(d, i) { return d.charge || calculateDistance(d); })
     .nodes(nodes)
     .size([w, h]);
-
-var root = {};
-root.radius = 0;
-root.fixed = true;
 
 force.start();
 
@@ -43,8 +87,9 @@ var svg = d3.select("#graph").append("svg:svg")
 svg.selectAll("circle")
     .data(nodes)
   .enter().append("svg:circle")
-    .attr("r", function(d) { return 4; })
-    .style("fill", function(d, i) { return color(i % 3); });
+    .attr("r", function(d) { return d.radius || 4; })
+    .attr("id",function(d) {return "user-node-"+d.id;})
+    .style("fill", function(d, i) { return d.color || color(i % 10); });
 
 force.on("tick", function(e) {
   var q = d3.geom.quadtree(nodes),
@@ -64,6 +109,14 @@ var holder = $("#user-holder");
 for(var i=0;i<people.length;i++){
   holder.append(drawUserBox(people[i]));
 }
+
+$(".user-box").hover(function(){
+  var id = $(this).data('user-id');
+  svg.select("#user-node-"+id).attr("r",8);
+},function(){
+  var id = $(this).data('user-id');
+  svg.select("#user-node-"+id).attr("r",4);
+})
 
 function collide(node) {
   var r = node.radius + 16,
@@ -93,7 +146,36 @@ function collide(node) {
 }
 
 function drawUserBox(user){
-  return "<div class='well'><form action='/groups/create/' method='post'>{% csrf_token %}<input type='submit' value='Request group' class='btn btn-primary'><input type='hidden' name='user_id' value='"+user.id+"'></form></div>";
+  return "<div class='well user-box' id='user-box-"+user.id+"' data-user-id='"+user.id+"'>"+
+            "<form action='/groups/create/' method='post'>"+
+              "{% csrf_token %}<input type='submit' value='Request group' class='btn btn-primary pull-right'>"+
+              "<input type='hidden' name='user_id' value='"+user.id+"'>"+
+            "</form>"+
+            "<div class='clearfix'></div>"+
+          "</div>";
+}
+
+function calculateDistance(other){
+  var params = {'age':1, 
+                'gender':1,
+                'person_type':1,
+                'learning_style':1, 
+                'interest':1,
+                'general_experience':1, 
+                'general_level':1, 
+                'topic_experience':1,
+                'topic_level':1,
+                'years_experience':1, 
+                'reason':1,
+                'credit':1, 
+                'goals': 1};
+  var score = 0;
+  for(var p in params){
+    if(user[p] == other[p]){
+      score+=params[p];
+    }
+  }
+  return 1/score*10;
 }
 </script>
 

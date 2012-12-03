@@ -128,6 +128,7 @@ INSTALLED_APPS = (
     'gunicorn',
     'south',
     'bootstrapform',
+    'bootstrap-pagination',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

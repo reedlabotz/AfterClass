@@ -8,9 +8,13 @@
       {% for c in courses %}   
          <div class="user-course well">
             <div class="options pull-right">
-               <a href="/courses/drop/{{c.id}}" class="btn btn-inverse">
-                  <i class="icon-trash"></i> Drop this course
-               </a>
+               <form action="/courses/drop/" method='post'>
+                  {% csrf_token %}
+                  <input type="hidden" name="usercourse_id" value="{{c.id}}">
+                  <button type="submit" class="btn btn-inverse">
+                     <i class="icon-trash"></i> Drop this course
+                  </button>
+               </form>
             </div>
             <div class="service">{{c.course.get_service_display}}</div>
             <div class="title">{{c.course.name}}</div>
