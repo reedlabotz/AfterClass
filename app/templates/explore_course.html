@@ -158,9 +158,10 @@ function drawUserBox(user){
             "<strong>Description: </strong>"+user.person_type+"<br>"+
             "<strong>Age: </strong>"+user.age+"<br>"+
             "<strong>Learning style: </strong>"+user.learning_style+"<br>"+
-            "<strong>General experience: </strong>"+user.general_level+"<br>"+
+            "<strong>General experience: </strong>"+user.general_experience+"<br>"+
+            "<strong>General level: </strong>"+user.general_level+"<br>"+
             "<strong>Topic experience: </strong>"+user.topic_experience+"<br>"+
-            "<strong>Topic lovel: </strong>"+user.topic_level+"<br>"+
+            "<strong>Topic level: </strong>"+user.topic_level+"<br>"+
             "<strong>Years of experience: </strong>"+user.years_experience+"<br>"+
             "<strong>Reason for taking: </strong>"+user.reason+"<br>"+
             "<strong>For credit: </strong>"+user.credit+"<br>"+
@@ -170,8 +171,8 @@ function drawUserBox(user){
 }
 
 function calculateDistance(other){
-  var params = {'age':1, 
-                'gender':1,
+  var params = {'age':3, 
+                'gender':0,
                 'person_type':1,
                 'learning_style':1, 
                 'interest':1,
@@ -180,8 +181,8 @@ function calculateDistance(other){
                 'topic_experience':1,
                 'topic_level':1,
                 'years_experience':1, 
-                'reason':1,
-                'credit':1, 
+                'reason':5,
+                'credit':10, 
                 'goals': 1};
   var score = 0;
   var max = 0;
