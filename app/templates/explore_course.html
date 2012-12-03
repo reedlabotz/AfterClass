@@ -2,7 +2,7 @@
 {% load bootstrap_pagination %}
 {% load availability_check %}
 {% block content %}
-<p>Find groups for your course <strong>{{course.course}}</strong></p>
+<h2>Find groups for your course <strong>{{course.course}}</strong></h2>
 <div class="row">
   <div class="span4" style="position: relative;">
     <div id="graph" data-spy="affix"></div>
@@ -18,6 +18,9 @@
 <script src="{{STATIC_URL}}js/d3.v2.min.js"></script>
 
 <script type="text/javascript">
+var SMALL_RADIUS = 5;
+var LARGE_RADIUS = 2*SMALL_RADIUS;
+
 var user = {
   'age': '{{profile.get_age_display}}',
   'gender': '{{profile.get_gender_display}}',
@@ -65,13 +68,13 @@ var h = 300,
     w = 300;
 
 var nodes = people,
-    color = d3.scale.category20();
+    color = d3.scale.category10();
 
 var root = {
   x: 142, 
   y: 142, 
   color: '#000', 
-  radius: 8,
+  radius: LARGE_RADIUS,
   fixed: true
 };
 
@@ -101,11 +104,11 @@ var svg = d3.select("#graph").append("svg:svg")
 var node = svg.selectAll("circle")
     .data(nodes)
     .enter().append("svg:circle")
-    .attr("r", function(d) { return d.radius || 4; })
+    .attr("r", function(d) { return d.radius || SMALL_RADIUS; })
     .attr("id",function(d) {return "user-node-"+d.id;})
     .on("mouseover",function(d){
       if(d != root){
-        d3.select(this).attr("r",8);
+        d3.select(this).attr("r",LARGE_RADIUS);
         $("#user-box-"+d.id).animate({
           borderTopColor:'#5192FB',
           borderLeftColor: '#5192FB',
@@ -125,30 +128,43 @@ var node = svg.selectAll("circle")
           borderRightColor: 'transparent',
           borderBottomColor: 'transparent'
         },200);
-        d3.select(this).attr("r",4);
+        d3.select(this).attr("r",SMALL_RADIUS);
       }
     })
-    .style("fill", function(d, i) { return d.color || color(i % 20); });
+    .style("fill", function(d, i) { return d.color || color(i % 10); });
 
 force.on("tick", function(e) {
   node.attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
+      .attr("cy", function(d) { return d.y; });
 });
 
 $(".user-box").hover(function(){
   var id = $(this).data('user-id');
-  svg.select("#user-node-"+id).attr("r",8);
+  svg.select("#user-node-"+id).attr("r",LARGE_RADIUS);
 },function(){
   var id = $(this).data('user-id');
-  svg.select("#user-node-"+id).attr("r",4);
+  svg.select("#user-node-"+id).attr("r",SMALL_RADIUS);
 })
 
 function drawUserBox(user){
   return "<div class='well user-box' id='user-box-"+user.id+"' data-user-id='"+user.id+"'>"+
-            "<form action='/groups/create/' method='post'>"+
-              "{% csrf_token %}<input type='submit' value='Request group' class='btn btn-primary pull-right'>"+
+
+            "<form action='/groups/create/' method='post' class='pull-right'>"+
+              "{% csrf_token %}<input type='submit' value='Request group' class='btn btn-primary'>"+
               "<input type='hidden' name='user_id' value='"+user.id+"'>"+
             "</form>"+
+            "<strong>Similar availability: </strong>"+(user.availability?"Yes":"No")+"<br>"+
+            "<strong>Gender: </strong>"+user.gender+"<br>"+
+            "<strong>Description: </strong>"+user.person_type+"<br>"+
+            "<strong>Age: </strong>"+user.age+"<br>"+
+            "<strong>Learning style: </strong>"+user.learning_style+"<br>"+
+            "<strong>General experience: </strong>"+user.general_level+"<br>"+
+            "<strong>Topic experience: </strong>"+user.topic_experience+"<br>"+
+            "<strong>Topic lovel: </strong>"+user.topic_level+"<br>"+
+            "<strong>Years of experience: </strong>"+user.years_experience+"<br>"+
+            "<strong>Reason for taking: </strong>"+user.reason+"<br>"+
+            "<strong>For credit: </strong>"+user.credit+"<br>"+
+            "<strong>Goals: </strong>"+user.goals+
             "<div class='clearfix'></div>"+
           "</div>";
 }
