@@ -4,8 +4,8 @@
 {% block content %}
 <p>Find groups for your course <strong>{{course.course}}</strong></p>
 <div class="row">
-  <div class="span4">
-    <div id="graph" data-spy="affix" data-offset-top="100" style="top: 0px;"></div>
+  <div class="span4" style="position: relative;">
+    <div id="graph" data-spy="affix"></div>
   </div>
   <div class="span8">
     <div id="user-holder"></div>
@@ -56,26 +56,40 @@ var people = [
   {% endfor %}
 ];
 
+var holder = $("#user-holder");
+for(var i=0;i<people.length;i++){
+  holder.append(drawUserBox(people[i]));
+}
+
 var h = 300,
     w = 300;
 
 var nodes = people,
-    color = d3.scale.category10();
+    color = d3.scale.category20();
 
 var root = {
   x: 142, 
   y: 142, 
   color: '#000', 
-  charge: -10,
   radius: 8,
   fixed: true
 };
+
+links = [];
+for(var n in nodes){
+  links.push({source: root, target: nodes[n]});
+}
+
 nodes.push(root);
 
 var force = d3.layout.force()
-    .gravity(0.005)
-    .charge(function(d, i) { return d.charge || calculateDistance(d); })
+    .gravity(0.01)
+    .charge(-4)
     .nodes(nodes)
+    .links(links)
+    .linkDistance(function(d){
+      return calculateDistance(d.target);
+    })
     .size([w, h]);
 
 force.start();
@@ -84,31 +98,42 @@ var svg = d3.select("#graph").append("svg:svg")
     .attr("width", w)
     .attr("height", h);
 
-svg.selectAll("circle")
+var node = svg.selectAll("circle")
     .data(nodes)
-  .enter().append("svg:circle")
+    .enter().append("svg:circle")
     .attr("r", function(d) { return d.radius || 4; })
     .attr("id",function(d) {return "user-node-"+d.id;})
-    .style("fill", function(d, i) { return d.color || color(i % 10); });
+    .on("mouseover",function(d){
+      if(d != root){
+        d3.select(this).attr("r",8);
+        $("#user-box-"+d.id).animate({
+          borderTopColor:'#5192FB',
+          borderLeftColor: '#5192FB',
+          borderRightColor: '#5192FB',
+          borderBottomColor: '#5192FB'
+        },200);
+        $('html, body').stop().animate({
+          scrollTop: $("#user-box-"+d.id).offset().top-10
+        }, 500);
+      }
+    })
+    .on("mouseout",function(d){
+      if(d != root){
+        $("#user-box-"+d.id).animate({
+          borderTopColor:'transparent',
+          borderLeftColor: 'transparent',
+          borderRightColor: 'transparent',
+          borderBottomColor: 'transparent'
+        },200);
+        d3.select(this).attr("r",4);
+      }
+    })
+    .style("fill", function(d, i) { return d.color || color(i % 20); });
 
 force.on("tick", function(e) {
-  var q = d3.geom.quadtree(nodes),
-      i = 0,
-      n = nodes.length;
-
-  while (++i < n) {
-    q.visit(collide(nodes[i]));
-  }
-
-  svg.selectAll("circle")
-      .attr("cx", function(d) { return d.x; })
-      .attr("cy", function(d) { return d.y; });
+  node.attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; });
 });
-
-var holder = $("#user-holder");
-for(var i=0;i<people.length;i++){
-  holder.append(drawUserBox(people[i]));
-}
 
 $(".user-box").hover(function(){
   var id = $(this).data('user-id');
@@ -117,33 +142,6 @@ $(".user-box").hover(function(){
   var id = $(this).data('user-id');
   svg.select("#user-node-"+id).attr("r",4);
 })
-
-function collide(node) {
-  var r = node.radius + 16,
-      nx1 = node.x - r,
-      nx2 = node.x + r,
-      ny1 = node.y - r,
-      ny2 = node.y + r;
-  return function(quad, x1, y1, x2, y2) {
-    if (quad.point && (quad.point !== node)) {
-      var x = node.x - quad.point.x,
-          y = node.y - quad.point.y,
-          l = Math.sqrt(x * x + y * y),
-          r = node.radius + quad.point.radius;
-      if (l < r) {
-        l = (l - r) / l * .5;
-        node.x -= x *= l;
-        node.y -= y *= l;
-        quad.point.x += x;
-        quad.point.y += y;
-      }
-    }
-    return x1 > nx2
-        || x2 < nx1
-        || y1 > ny2
-        || y2 < ny1;
-  };
-}
 
 function drawUserBox(user){
   return "<div class='well user-box' id='user-box-"+user.id+"' data-user-id='"+user.id+"'>"+
@@ -170,12 +168,14 @@ function calculateDistance(other){
                 'credit':1, 
                 'goals': 1};
   var score = 0;
+  var max = 0;
   for(var p in params){
     if(user[p] == other[p]){
       score+=params[p];
     }
+    max += params[p];
   }
-  return 1/score*10;
+  return (max-score)/max*134+10;
 }
 </script>
 
