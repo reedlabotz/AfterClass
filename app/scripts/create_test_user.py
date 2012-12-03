@@ -12,6 +12,9 @@ import random
 def random_choice(choice):
    return choice[random.randint(0,len(choice)-1)][0]
 
+def random_availability():
+   return '{0:048b}'.format(random.getrandbits(48))
+
 courses = Course.objects.all()
 i=0
 for c in courses:
@@ -43,13 +46,13 @@ for i in range(num):
    profile.person_type = random_choice(PERSON_TYPE_CHOICES)
    profile.learning_style = random_choice(PERSON_LEARNING_STYLE_CHOICES)
    profile.interest = random_choice(PERSON_INTEREST_CHOICES)
-   profile.monday_availability = "000111111111111111111111111111111111000000000000"
-   profile.tuesday_availability = "000111111111111111111111111111111111000000000000"
-   profile.wednesday_availability = "000111111111111111111111111111111111000000000000"
-   profile.thursday_availability = "000111111111111111111111111111111111000000000000"
-   profile.friday_availability = "000111111111111111111111111111111111000000000000"
-   profile.saturday_availability = "000111111111111111111111111111111111000000000000"
-   profile.sunday_availability = "000111111111111111111111111111111111000000000000"
+   profile.monday_availability = random_availability()
+   profile.tuesday_availability = random_availability()
+   profile.wednesday_availability = random_availability()
+   profile.thursday_availability = random_availability()
+   profile.friday_availability = random_availability()
+   profile.saturday_availability = random_availability()
+   profile.sunday_availability = random_availability()
    profile.save()
 
    c = UserCourse()
