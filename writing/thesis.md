@@ -53,7 +53,11 @@ One students have completed the personal information and availability surveys th
 ![Add course screen](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/add-course.png)
 
 
-### Helping users find circles
+### Helping users find groups
+
+The most important aspect of this service is the ability for students to find other students that will be good partners for them. To help in this process we show users a graph in the explore section that shows how similar to themselves other students are. This allows students to look for other students that they think will be a good fit or them, be it someone who is very similar or someone who is a polar opposite.
+
+![Explore screen](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/explore.png)
 
 
 ### Interacting with a circle
