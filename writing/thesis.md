@@ -59,6 +59,10 @@ The most important aspect of this service is the ability for students to find ot
 
 ![Explore screen](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/explore.png)
 
+One a user sends a partner request the requested user is notified and asked to accept or reject the request based on the same user information provided in the explore screen. During the request process the personal information of neither party is given to the other until both have approved the group.
+
+![Explore screen](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/partner-request.png)
+
 
 ### Interacting with a circle
 
