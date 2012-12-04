@@ -38,7 +38,8 @@
             <strong>Years of experience: </strong> {{p.get_years_experience_display}}<br>
             <strong>Reason for taking: </strong> {{p.get_reason_display}}<br>
             <strong>For credit: </strong> {{p.get_credit_display}}<br>
-            <strong>Goals: </strong> {{p.get_goals_display}}
+            <strong>Goals: </strong> {{p.get_goals_display}}<br>
+            <strong>Bio: </strong> {{p.user.get_profile.bio}}
          </p>
       </div>
       {% endfor %}

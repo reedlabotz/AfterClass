@@ -21,3 +21,13 @@
    </div>
 </div>
 {% endblock %}
+{% block bottom_script %}
+<script>
+$(document).ready(function(){
+  console.log($("#id_bio"));
+  $("#id_bio").bind('input propertychange',function(){
+    $("label[for='id_bio']").html("Tell us a little about yourself, ("+(140-$("#id_bio").val().length)+" characters remaining)");
+  });
+});
+</script>
+{% endblock %}

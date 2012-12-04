@@ -179,6 +179,8 @@ class UserProfile(models.Model):
    saturday_availability = models.CharField(max_length=48)
    sunday_availability = models.CharField(max_length=48)
 
+   bio = models.CharField(max_length=140,verbose_name="Tell us a little about yourself, (140 characters remaining)")
+
 def createUserProfile(sender, instance, **kwargs):
     """Create a UserProfile object each time a User is created ; and link it.
     """

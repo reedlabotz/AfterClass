@@ -18,7 +18,8 @@
             <strong>Years of experience: </strong> {{partner_request.owner_usercourse.get_years_experience_display}}<br>
             <strong>Reason for taking: </strong> {{partner_request.owner_usercourse.get_reason_display}}<br>
             <strong>For credit: </strong> {{partner_request.owner_usercourse.get_credit_display}}<br>
-            <strong>Goals: </strong> {{partner_request.owner_usercourse.get_goals_display}}
+            <strong>Goals: </strong> {{partner_request.owner_usercourse.get_goals_display}}<br>
+            <strong>Bio: </strong> {{partner_request.owner.get_profile.bio}}
          </p>
          <form method="post" class="pull-right">
             {% csrf_token %}
