@@ -68,7 +68,7 @@ One a user sends a partner request the requested user is notified and asked to a
 
 ### Interacting with a circle
 
-The core of the system is the chat interface which allows users to get to know each other in a very low pressure environment. Once users have accepted each other into a group, they are permitted to now see first names to allow them to identify themselves. This is still an anonymous version of chat that allows them to interact without knowing any specifics about the person they are chatting with. We continue to display the meta information about each user to give a sort of ice breaker and allow the users to remember some more information about the user they are talking to.
+The core of the system is the chat interface which allows users to get to know each other in a very low pressure environment. Once users have accepted each other into a group, they are permitted to now see first names to allow them to identify themselves. This is still an anonymous version of chat that allows them to interact without knowing any specifics about the person they are chatting with. We continue to display the meta information about each user to give a sort of ice breaker and allow the users to remember some more information about the user they are talking to. This information also helps to remind users that they either do or don't have similar availability, so that if they wish they can take the chat from this service to a multimedia chat environment such as Skype or Google Hangouts.
 
 ![Chat interface](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/chat.png)
 
