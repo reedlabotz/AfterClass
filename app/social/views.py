@@ -14,7 +14,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from registration.views import register
 
-from app.social.models import UserProfile, UserCourse, PartnerRequest, Circle, CircleUser
+from app.social.models import UserProfile, UserCourse, PartnerRequest, Circle, CircleUser, CircleAction
 
 from app.social.helper import isWelcome
 
@@ -28,9 +28,20 @@ def main(request):
 @login_required
 @user_passes_test(isWelcome, login_url='/welcome')
 def groups(request):
-   requests = request.user.partner_request_user.all()
    groups = request.user.circle_set.all()
-   return render_to_response('groups.html',{'page':'groups','requests':requests,'groups':groups},context_instance=RequestContext(request))
+   requests = request.user.partner_request_user.all()
+   return render_to_response('groups.html',{'page':'groups','groups':groups,'requests':requests},context_instance=RequestContext(request))
+
+@login_required
+@user_passes_test(isWelcome, login_url='/welcome')
+def groups_details(request,id):
+   group =  get_object_or_404(request.user.circle_set,id=id)
+   if request.POST:
+      action = CircleAction(user=request.user,circle=group,type='c',text=request.POST.get('message'))
+      action.save()
+   actions = group.circleaction_set.all()
+   people = map(lambda u: u.user.usercourse_set.get(course=group.course),group.circleuser_set.exclude(user=request.user))
+   return render_to_response('groups_details.html',{'page':'groups','group':group,'actions':actions,'people':people},context_instance=RequestContext(request))
 
 @login_required
 @user_passes_test(isWelcome, login_url='/welcome')

@@ -4,6 +4,7 @@ from django.views.generic.simple import direct_to_template
 
 urlpatterns = patterns('',
    url(r'^groups/$','app.social.views.groups'),
+   url(r'^groups/(?P<id>\d+)/$','app.social.views.groups_details'),
    url(r'^groups/create/$','app.social.views.groups_create'),
    url(r'^groups/requests/(?P<id>\d+)/$','app.social.views.partner_request'),
    url(r'^explore/$','app.social.views.explore'),

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{group}}</h2>
+<div class="row">
+   <div class="span8">
+      <div class="well group-details">
+         {% for a in actions %}
+         <p><span class="timestamp">{{ a.created|date:"SHORT_DATETIME_FORMAT" }}: </span>
+         {% if a.type == 'j' %}
+         <span class="user">{{a.user.first_name}}</span> joined the group.
+         {% elif a.type == 'c' %}
+         <span class="user">{{a.user.first_name}}: </span>{{a.text}}
+         {% endif %}
+         </p>
+         {% endfor %}
+         <form method="post" class="groups-details-message-form">
+            {% csrf_token %}
+            <textarea name="message" placeholder="Message..."></textarea>
+            <input type="submit" value="Send" class="btn btn-inverse">
+         </form>
+      </div>
+   </div>
+   <div class="span4">
+      {% for p in people %}
+      <div class="well">
+         <p><strong>{{p.user.first_name}}</strong></p>
+         <p>
+            <strong>Gender: </strong> {{p.user.get_profile.get_gender_display}}<br>
+            <strong>Description: </strong> {{p.user.get_profile.get_person_type_display}}<br>
+            <strong>Age: </strong> {{p.user.get_profile.get_age_display}}<br>
+            <strong>Learning style: </strong> {{p.user.get_profile.get_learning_style_display}}<br>
+            <strong>General experience: </strong> {{p.get_general_experience_display}}<br>
+            <strong>General level: </strong> {{p.get_general_level_display}}<br>
+            <strong>Topic experience: </strong> {{p.get_topic_experience_display}}<br>
+            <strong>Topic level: </strong> {{p.get_topic_level_display}}<br>
+            <strong>Years of experience: </strong> {{p.get_years_experience_display}}<br>
+            <strong>Reason for taking: </strong> {{p.get_reason_display}}<br>
+            <strong>For credit: </strong> {{p.get_credit_display}}<br>
+            <strong>Goals: </strong> {{p.get_goals_display}}
+         </p>
+      </div>
+      {% endfor %}
+   </div>
+</div>
+
+{% endblock %}

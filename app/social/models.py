@@ -127,6 +127,12 @@ USER_COURSE_GOAL_CHOICES = (
    ('o','Other')
 )
 
+CIRCLE_ACTION_TYPES = (
+   ('j','User joined'),
+   ('c','User says')
+)
+
+
 
 class Course(models.Model):
    name = models.CharField(max_length=255)
@@ -233,6 +239,19 @@ class CircleUser(models.Model):
    circle = models.ForeignKey(Circle)
    user = models.ForeignKey(User)
    created = models.DateTimeField(auto_now=True)
+
+class CircleAction(models.Model):
+   circle = models.ForeignKey(Circle)
+   user = models.ForeignKey(User) 
+   type = models.CharField(max_length=1,choices=CIRCLE_ACTION_TYPES)
+   text = models.TextField(null=True)
+   created = models.DateTimeField(auto_now=True)
+def createUserJoinAction(sender, instance, **kwargs):
+    """Create a user joined action when they join
+    """
+    action = CircleAction(circle=instance.circle,user=instance.user,type='j')
+    action.save()
+post_save.connect(createUserJoinAction, sender=CircleUser)
 
 class CircleRequest(models.Model):
    circle = models.ForeignKey(Circle)

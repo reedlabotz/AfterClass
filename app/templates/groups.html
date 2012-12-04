@@ -1,8 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
+{% if requests %}
+<h2>Requests</h2>
+<p>You have some new requests!</p>
+{% for r in requests %}
+<a href="/groups/requests/{{r.id}}">{{r.course}}</a>
+{% endfor %}
+<hr>
+{% endif %}
+<h2>Groups</h2>
 {% for g in groups %}
    <div class="well">
-      {{g}}
+      <a href="/groups/{{g.id}}" class="btn btn-inverse pull-right">View</a>{{g}}
+      <div class="clearfix"></div>
    </div>
 {% empty %}
    <p>It looks like you don't have any groups yet. Why don't you go <a href='/explore'>explore</a> and find some.</p>

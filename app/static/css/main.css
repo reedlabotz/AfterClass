@@ -252,3 +252,20 @@
 .user-box{
    border: 1px solid transparent;
 }
+
+/* groups-details */
+.groups-details-message-form{
+   margin-bottom: 0;
+}
+
+.groups-details-message-form textarea{
+   width: 570px;
+}
+
+.group-details .timestamp{
+   color: #ccc;
+}
+
+.group-details .user{
+   font-weight: bold;
+}
