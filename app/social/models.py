@@ -36,7 +36,7 @@ PERSON_LEARNING_STYLE_CHOICES = (
 PERSON_INTEREST_CHOICES = (
    ('Agr','Agriculture'),
    ('Ant','Anthropology'),
-   ('Arc','Archaeology'),
+   ('Arc','Archeology'),
    ('Arc','Architecture and Design'),
    ('Are','Area studies'),
    ('Bus','Business'),
@@ -89,7 +89,7 @@ COURSE_SERVICE_CHOICES = (
 
 USER_COURSE_EXPERIENCE_CHOICES = (
    ('f','First Timer'),
-   ('h','Hobbiest'),
+   ('h','Hobbyist'),
    ('u','Undergraduate Student'),
    ('g','Graduate Student'),
    ('a','Academic'),
@@ -135,6 +135,8 @@ class Course(models.Model):
    professor = models.CharField(max_length=255)
    url = models.URLField()
 
+   students = models.ManyToManyField(User,through='UserCourse')
+
    def __unicode__(self):
       return '%s: %s'%(self.get_service_display(),self.name)
 
@@ -171,24 +173,6 @@ class UserProfile(models.Model):
    saturday_availability = models.CharField(max_length=48)
    sunday_availability = models.CharField(max_length=48)
 
-   courses = models.ManyToManyField(Course,through='UserCourse')
-
-   def distance(self,user):
-      max_score = 5
-      score = 0
-      other = user.get_profile()
-      if self.age == other.age:
-         score += 1
-      if self.gender == other.gender:
-         score += 1
-      if self.person_type == other.person_type:
-         score += 1
-      if self.learning_style == other.learning_style:
-         score += 1
-      if self.interest == other.interest:
-         score += 1
-      return max_score - score
-
 def createUserProfile(sender, instance, **kwargs):
     """Create a UserProfile object each time a User is created ; and link it.
     """
@@ -197,7 +181,7 @@ def createUserProfile(sender, instance, **kwargs):
 post_save.connect(createUserProfile, sender=User)
 
 class UserCourse(models.Model):
-   user = models.ForeignKey(UserProfile)
+   user = models.ForeignKey(User)
    course = models.ForeignKey(Course)
    general_experience = models.CharField(
       max_length=1,
@@ -238,7 +222,7 @@ class UserCourse(models.Model):
 class Circle(models.Model):
    course = models.ForeignKey(Course)
    users = models.ManyToManyField(User,through='CircleUser')
-   requests = models.ManyToManyField(User,through='CircleRequest',related_name='request')
+   requests = models.ManyToManyField(User,through='CircleRequest',related_name='circle_request')
    public = models.BooleanField(default=False)
 
 class CircleUser(models.Model):
@@ -248,12 +232,26 @@ class CircleUser(models.Model):
 
 class CircleRequest(models.Model):
    circle = models.ForeignKey(Circle)
-   user = models.ForeignKey(User,related_name='requester')
+   owner = models.ForeignKey(User,related_name='circle_request_owner')
+   confirmed = models.ManyToManyField(User,related_name='circle_request_confirmer')
    created = models.DateTimeField(auto_now=True)
-   confirmed = models.ManyToManyField(User)
+   deleted = models.BooleanField(default=False)
 
-class CircleSuggestion(models.Model):
-   course = models.ForeignKey(Course)
-   users = models.ManyToManyField(User)
-   confirmed = models.ManyToManyField(User,related_name='confirmer')
-   deleted = models.BooleanField()
+class PartnerRequest(models.Model):
+   owner = models.ForeignKey(User,related_name='partner_request_owner')
+   user = models.ForeignKey(User,related_name='partner_request_user')
+   created = models.DateTimeField(auto_now=True)
+   deleted = models.BooleanField(default=False)
+
+class PartnerSuggest(models.Model):
+   owner = models.ForeignKey(User,related_name='partner_suggest_owner')
+   user = models.ForeignKey(User,related_name='partner_suggest_user')
+   created = models.DateTimeField(auto_now=True)
+   deleted = models.BooleanField(default=False)
+
+class CircleSuggest(models.Model):
+   owner = models.ForeignKey(User,related_name='circle_suggest_owner')
+   circle = models.ForeignKey(Circle,related_name='circle_suggest_circle')
+   created = models.DateTimeField(auto_now=True)
+   deleted = models.BooleanField(default=False)
+

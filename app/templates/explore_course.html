@@ -2,7 +2,7 @@
 {% load bootstrap_pagination %}
 {% load availability_check %}
 {% block content %}
-<h2>Find groups for your course <strong>{{course.course}}</strong></h2>
+<h2>Find groups for your course <strong>{{usercourse.course}}</strong></h2>
 <div class="row">
   <div class="span4" style="position: relative;">
     <div id="graph" data-spy="affix"></div>
@@ -22,11 +22,11 @@ var SMALL_RADIUS = 5;
 var LARGE_RADIUS = 2*SMALL_RADIUS;
 
 var user = {
-  'age': '{{profile.get_age_display}}',
-  'gender': '{{profile.get_gender_display}}',
-  'person_type': '{{profile.get_person_type_display}}',
-  'learning_style': '{{profile.get_learning_style_display}}',
-  'interest': '{{profile.get_interest_display}}',
+  'age': '{{user.get_profile.get_age_display}}',
+  'gender': '{{user.get_profile.get_gender_display}}',
+  'person_type': '{{user.get_profile.get_person_type_display}}',
+  'learning_style': '{{user.get_profile.get_learning_style_display}}',
+  'interest': '{{user.get_profile.get_interest_display}}',
   'general_experience': '{{usercourse.get_general_experience_display}}',
   'general_level': '{{usercourse.get_general_level_display}}',
   'topic_experience': '{{usercourse.get_topic_experience_display}}',
@@ -40,13 +40,13 @@ var user = {
 var people = [
   {% for p in people %}
   {
-    'id': {{p.user.user.id}},
-    'age': '{{p.user.get_age_display}}',
-    'gender': '{{p.user.get_gender_display}}',
-    'person_type': '{{p.user.get_person_type_display}}',
-    'learning_style': '{{p.user.get_learning_style_display}}',
-    'interest': '{{p.user.get_interest_display}}',
-    'availability': {% availability_check p.user profile %},
+    'id': {{p.user.id}},
+    'age': '{{p.user.get_profile.get_age_display}}',
+    'gender': '{{p.user.get_profile.get_gender_display}}',
+    'person_type': '{{p.user.get_profile.get_person_type_display}}',
+    'learning_style': '{{p.user.get_profile.get_learning_style_display}}',
+    'interest': '{{p.user.get_profile.get_interest_display}}',
+    'availability': {% availability_check p.user.get_profile user.get_profile %},
     'general_experience': '{{p.get_general_experience_display}}',
     'general_level': '{{p.get_general_level_display}}',
     'topic_experience': '{{p.get_topic_experience_display}}',
@@ -144,7 +144,7 @@ $(".user-box").hover(function(){
 },function(){
   var id = $(this).data('user-id');
   svg.select("#user-node-"+id).attr("r",SMALL_RADIUS);
-})
+});
 
 function drawUserBox(user){
   return "<div class='well user-box' id='user-box-"+user.id+"' data-user-id='"+user.id+"'>"+

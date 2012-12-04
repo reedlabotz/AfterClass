@@ -34,19 +34,24 @@ def groups(request):
 @user_passes_test(isWelcome, login_url='/welcome')
 @require_POST
 def groups_create(request):
-   user = request.POST.get('user_id');
+   usercourse = get_object_or_404(request.user.get_profile().usercourse_set,id=request.POST.get('usercourse_id'))
+   other = get_object_or_404(usercourse.course.usercourse_set,id=request.POST.get('user_id'))
+   
+   usercourse.user.user.email
+   other.user.user.email
+
    return render_to_response('main.html',{'page':'groups'},context_instance=RequestContext(request))
 
 @login_required
 @user_passes_test(isWelcome, login_url='/welcome')
 def explore(request):
-   courses = request.user.get_profile().usercourse_set.all()
+   courses = request.user.usercourse_set.all()
    return render_to_response('explore.html',{'page':'explore','courses':courses},context_instance=RequestContext(request))
 
 @login_required
 @user_passes_test(isWelcome, login_url='/welcome')
 def explore_course(request,id):
-   usercourse = get_object_or_404(request.user.get_profile().usercourse_set,id=id)
+   usercourse = get_object_or_404(request.user.usercourse_set,id=id)
    course = usercourse.course
    people = course.usercourse_set.exclude(user=request.user)
    paginator = Paginator(people, 25)
@@ -63,16 +68,15 @@ def explore_course(request,id):
 
    return render_to_response('explore_course.html',{
       'page':'explore',
-      'profile': request.user.get_profile(),
+      'user': request.user,
       'people':people,
-      'course':usercourse,
       'usercourse':usercourse
       },context_instance=RequestContext(request))
 
 @login_required
 @user_passes_test(isWelcome, login_url='/welcome')
 def courses(request):
-   courses = request.user.get_profile().usercourse_set.all()
+   courses = request.user.usercourse_set.all()
    return render_to_response('courses.html',{'page':'courses','courses':courses},context_instance=RequestContext(request))
 
 @login_required
@@ -83,7 +87,7 @@ def courses_add(request):
       user_course_form = UserCourseForm(request.POST)
       if user_course_form.is_valid():
          user_course = user_course_form.save(commit=False)
-         user_course.user = request.user.get_profile()
+         user_course.user = request.user
          try:
             user_course.save()
             messages.add_message(request, messages.SUCCESS, "Course Added.")
@@ -97,7 +101,7 @@ def courses_add(request):
 @require_POST
 def courses_drop(request):
    id = request.POST.get('usercourse_id')
-   course = get_object_or_404(request.user.get_profile().usercourse_set, id=id)
+   course = get_object_or_404(request.user.usercourse_set, id=id)
    course.delete()
    messages.add_message(request, messages.SUCCESS, "Course dropped.")
    return redirect('/courses')
