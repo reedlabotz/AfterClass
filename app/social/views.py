@@ -14,7 +14,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from registration.views import register
 
-from app.social.models import UserProfile, UserCourse
+from app.social.models import UserProfile, UserCourse, PartnerRequest
 
 from app.social.helper import isWelcome
 
@@ -34,11 +34,12 @@ def groups(request):
 @user_passes_test(isWelcome, login_url='/welcome')
 @require_POST
 def groups_create(request):
-   usercourse = get_object_or_404(request.user.get_profile().usercourse_set,id=request.POST.get('usercourse_id'))
+   usercourse = get_object_or_404(request.user.usercourse_set,id=request.POST.get('usercourse_id'))
    other = get_object_or_404(usercourse.course.usercourse_set,id=request.POST.get('user_id'))
    
-   usercourse.user.user.email
-   other.user.user.email
+   partner_request = PartnerRequest(owner=request.user,user=other.user).save()
+
+   messages.add_message(request,messages.SUCCESS,'Request sent.')
 
    return render_to_response('main.html',{'page':'groups'},context_instance=RequestContext(request))
 
