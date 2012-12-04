@@ -61,10 +61,16 @@ The most important aspect of this service is the ability for students to find ot
 
 One a user sends a partner request the requested user is notified and asked to accept or reject the request based on the same user information provided in the explore screen. During the request process the personal information of neither party is given to the other until both have approved the group.
 
-![Explore screen](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/partner-request.png)
+![Requests notice](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/request.png)
+
+![Request screen](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/partner-request.png)
 
 
 ### Interacting with a circle
+
+The core of the system is the chat interface which allows users to get to know each other in a very low pressure environment. Once users have accepted each other into a group, they are permitted to now see first names to allow them to identify themselves. This is still an anonymous version of chat that allows them to interact without knowing any specifics about the person they are chatting with. We continue to display the meta information about each user to give a sort of ice breaker and allow the users to remember some more information about the user they are talking to.
+
+![Chat interface](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/chat.png)
 
 
 ### Future features
