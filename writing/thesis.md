@@ -81,3 +81,5 @@ Although the main focus of this project is to find groups for online interaction
 ## Future Research
 
 The next step in this project will be to get a field trial with real students. To be able to test the efficacy of the system in finding productive groups students would need to be asked an extra survey about their previous experience in MOOCs as well as surveys about how much they enjoy the meetings they have with their groups, and if the groups added to their enjoyment or learning in the course.
+
+Since groups are made up of students with a shared enrollment in a class, advertising for only one or two courses will allow students to find groups and will ensure that there is a good number of students to explore through for each of the targeted classes.
