@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load availability_check %}
+{% block content %}
+<p>The following user has requested to start a group with you for <strong>{{partner_request.course}}</strong></p>
+<div class="row">
+   <div class="span6 offset3">
+      <div class="well">
+         <p>
+            <strong>Similar availability: </strong>{% availability_check partner_request.user.get_profile partner_request.user.get_profile "Yes" "No" %}<br>
+            <strong>Gender: </strong> {{partner_request.owner.get_profile.get_gender_display}}<br>
+            <strong>Description: </strong> {{partner_request.owner.get_profile.get_person_type_display}}<br>
+            <strong>Age: </strong> {{partner_request.owner.get_profile.get_age_display}}<br>
+            <strong>Learning style: </strong> {{partner_request.owner.get_profile.get_learning_style_display}}<br>
+            <strong>General experience: </strong> {{partner_request.owner_usercourse.get_general_experience_display}}<br>
+            <strong>General level: </strong> {{partner_request.owner_usercourse.get_general_level_display}}<br>
+            <strong>Topic experience: </strong> {{partner_request.owner_usercourse.get_topic_experience_display}}<br>
+            <strong>Topic level: </strong> {{partner_request.owner_usercourse.get_topic_level_display}}<br>
+            <strong>Years of experience: </strong> {{partner_request.owner_usercourse.get_years_experience_display}}<br>
+            <strong>Reason for taking: </strong> {{partner_request.owner_usercourse.get_reason_display}}<br>
+            <strong>For credit: </strong> {{partner_request.owner_usercourse.get_credit_display}}<br>
+            <strong>Goals: </strong> {{partner_request.owner_usercourse.get_goals_display}}
+         </p>
+         <form method="post" class="pull-right">
+            {% csrf_token %}
+            <button type="submit" name="reject" value="true" class="btn btn-inverse">Reject</button>
+            <button type="submit" name="accept" value="true" class="btn btn-success">Accept</button>
+         </form>
+         <div class="clearfix"></div>
+      </div>
+   </div>
+</div>
+
+{% endblock %}

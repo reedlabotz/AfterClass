@@ -46,7 +46,7 @@ var people = [
     'person_type': '{{p.user.get_profile.get_person_type_display}}',
     'learning_style': '{{p.user.get_profile.get_learning_style_display}}',
     'interest': '{{p.user.get_profile.get_interest_display}}',
-    'availability': {% availability_check p.user.get_profile user.get_profile %},
+    'availability': {% availability_check p.user.get_profile user.get_profile "true" "false" %},
     'general_experience': '{{p.get_general_experience_display}}',
     'general_level': '{{p.get_general_level_display}}',
     'topic_experience': '{{p.get_topic_experience_display}}',

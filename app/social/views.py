@@ -14,7 +14,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from registration.views import register
 
-from app.social.models import UserProfile, UserCourse, PartnerRequest
+from app.social.models import UserProfile, UserCourse, PartnerRequest, Circle, CircleUser
 
 from app.social.helper import isWelcome
 
@@ -28,7 +28,9 @@ def main(request):
 @login_required
 @user_passes_test(isWelcome, login_url='/welcome')
 def groups(request):
-   return render_to_response('main.html',{'page':'groups'},context_instance=RequestContext(request))
+   requests = request.user.partner_request_user.all()
+   groups = request.user.circle_set.all()
+   return render_to_response('groups.html',{'page':'groups','requests':requests,'groups':groups},context_instance=RequestContext(request))
 
 @login_required
 @user_passes_test(isWelcome, login_url='/welcome')
@@ -37,11 +39,33 @@ def groups_create(request):
    usercourse = get_object_or_404(request.user.usercourse_set,id=request.POST.get('usercourse_id'))
    other = get_object_or_404(usercourse.course.usercourse_set,id=request.POST.get('user_id'))
    
-   partner_request = PartnerRequest(owner=request.user,user=other.user).save()
+   partner_request = PartnerRequest(owner=request.user,user=other.user,course=usercourse.course).save()
 
    messages.add_message(request,messages.SUCCESS,'Request sent.')
 
    return render_to_response('main.html',{'page':'groups'},context_instance=RequestContext(request))
+
+@login_required
+@user_passes_test(isWelcome, login_url='/welcome')
+def partner_request(request,id):
+   partner_request = get_object_or_404(request.user.partner_request_user,id=id)
+   if request.POST:
+      if request.POST.get('accept') == "true":
+         circle = Circle(course=partner_request.course)
+         circle.save()
+         circleuser_owner = CircleUser(circle=circle,user=partner_request.owner)
+         circleuser_owner.save()
+         circleuser_user = CircleUser(circle=circle,user=partner_request.user)
+         circleuser_user.save()
+         messages.add_message(request,messages.SUCCESS,"Request accepted, a group has been created.")
+         partner_request.delete()
+         return redirect('/groups')
+      if request.POST.get('reject') == "true":
+         partner_request.deleted = True
+         partner_request.save()
+         messages.add_message(request,messages.SUCCESS,"Request rejected.")
+         return redirect('/groups')
+   return render_to_response('partner_request.html',{'page':'groups','partner_request':partner_request},context_instance=RequestContext(request))
 
 @login_required
 @user_passes_test(isWelcome, login_url='/welcome')

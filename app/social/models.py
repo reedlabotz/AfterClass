@@ -228,7 +228,7 @@ class Circle(models.Model):
 class CircleUser(models.Model):
    circle = models.ForeignKey(Circle)
    user = models.ForeignKey(User)
-   joined = models.DateTimeField(null=True)
+   created = models.DateTimeField(auto_now=True)
 
 class CircleRequest(models.Model):
    circle = models.ForeignKey(Circle)
@@ -238,12 +238,20 @@ class CircleRequest(models.Model):
    deleted = models.BooleanField(default=False)
 
 class PartnerRequest(models.Model):
+   course = models.ForeignKey(Course,related_name='+')
    owner = models.ForeignKey(User,related_name='partner_request_owner')
    user = models.ForeignKey(User,related_name='partner_request_user')
    created = models.DateTimeField(auto_now=True)
    deleted = models.BooleanField(default=False)
 
+   def owner_usercourse(self):
+      return self.owner.usercourse_set.get(course=self.course)
+
+   def user_usercourse(self):
+      return self.user.usercourse_set.get(course=self.course)
+
 class PartnerSuggest(models.Model):
+   course = models.ForeignKey(Course,related_name='+')
    owner = models.ForeignKey(User,related_name='partner_suggest_owner')
    user = models.ForeignKey(User,related_name='partner_suggest_user')
    created = models.DateTimeField(auto_now=True)

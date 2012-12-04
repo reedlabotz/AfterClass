@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+{% if groups %}
+   {% for g in groups %}
+      {{g}}
+   {% endfor %}
+{% else %}
+   <p>It looks like you don't have any groups yet. Why don't you go <a href='/explore'>explore</a> and find some.</p>
+{% endif %}
+{% endblock %}
