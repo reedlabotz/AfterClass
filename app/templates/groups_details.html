@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load availability_check %}
 {% block content %}
 <h2>{{group}}</h2>
 <div class="row">
@@ -25,6 +26,7 @@
       <div class="well">
          <p><strong>{{p.user.first_name}}</strong></p>
          <p>
+            <strong>Similar availability: </strong>{% availability_check p.user.get_profile profile "Yes" "No" %}<br>
             <strong>Gender: </strong> {{p.user.get_profile.get_gender_display}}<br>
             <strong>Description: </strong> {{p.user.get_profile.get_person_type_display}}<br>
             <strong>Age: </strong> {{p.user.get_profile.get_age_display}}<br>

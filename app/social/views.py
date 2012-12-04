@@ -41,7 +41,7 @@ def groups_details(request,id):
       action.save()
    actions = group.circleaction_set.all()
    people = map(lambda u: u.user.usercourse_set.get(course=group.course),group.circleuser_set.exclude(user=request.user))
-   return render_to_response('groups_details.html',{'page':'groups','group':group,'actions':actions,'people':people},context_instance=RequestContext(request))
+   return render_to_response('groups_details.html',{'page':'groups','group':group,'actions':actions,'people':people,'profile':request.user.get_profile()},context_instance=RequestContext(request))
 
 @login_required
 @user_passes_test(isWelcome, login_url='/welcome')
