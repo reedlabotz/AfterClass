@@ -3,5 +3,12 @@
 <p>Choose one of your courses you would like to find a new group for.</p>
 {% for c in courses %}
 <p><a href="/explore/{{c.id}}" class="btn">{{c.course}}</a></p>
+{% empty %}
+<p>
+   It looks like you haven't told us about any classes you are taking yet.
+</p>
+<p>
+   Why don't you <a href="/courses/add">add one now</a>?
+</p>
 {% endfor %}
 {% endblock %}

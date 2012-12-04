@@ -1,36 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row">
-   <div class="span12">
-      <a href="/courses/add" class="btn btn-danger pull-right"><i class="icon-plus"></i> Add a course</a>
-      {% if courses %}
-      <h2>Your Courses</h2>
-      {% for c in courses %}   
-         <div class="user-course well">
-            <div class="options pull-right">
-               <form action="/courses/drop/" method='post'>
-                  {% csrf_token %}
-                  <input type="hidden" name="usercourse_id" value="{{c.id}}">
-                  <button type="submit" class="btn btn-inverse">
-                     <i class="icon-trash"></i> Drop this course
-                  </button>
-               </form>
-            </div>
-            <div class="service">{{c.course.get_service_display}}</div>
-            <div class="title">{{c.course.name}}</div>
-            <div class="homepage"><a href="{{c.course.url}}">Homepage</a></div>
-            
-         </div>
-      {% endfor %}
-      {% else %}
-      <p>
-         It looks like you haven't told us about any classes you are taking yet.
-      </p>
-      <p>
-         Why don't you <a href="/courses/add">add one now</a>?
-      </p>
-         
-      {% endif %}
+<a href="/courses/add" class="btn btn-danger pull-right"><i class="icon-plus"></i> Add a course</a>
+<h2>Your Courses</h2>
+{% for c in courses %}   
+   <div class="user-course well">
+      <div class="options pull-right">
+         <form action="/courses/drop/" method='post'>
+            {% csrf_token %}
+            <input type="hidden" name="usercourse_id" value="{{c.id}}">
+            <button type="submit" class="btn btn-inverse">
+               <i class="icon-trash"></i> Drop this course
+            </button>
+         </form>
+      </div>
+      <div class="service">{{c.course.get_service_display}}</div>
+      <div class="title">{{c.course.name}}</div>
+      <div class="homepage"><a href="{{c.course.url}}">Homepage</a></div>
    </div>
-</div>
+{% empty %}
+<p>
+   It looks like you haven't told us about any classes you are taking yet.
+</p>
+<p>
+   Why don't you <a href="/courses/add">add one now</a>?
+</p>
+{% endfor %}
 {% endblock %}

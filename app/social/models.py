@@ -225,6 +225,10 @@ class Circle(models.Model):
    requests = models.ManyToManyField(User,through='CircleRequest',related_name='circle_request')
    public = models.BooleanField(default=False)
 
+   def __unicode__(self):
+      people = map(lambda u: u.first_name, self.users.all())
+      return '%s with %s'%(self.course,", ".join(people))
+
 class CircleUser(models.Model):
    circle = models.ForeignKey(Circle)
    user = models.ForeignKey(User)
