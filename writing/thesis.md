@@ -40,7 +40,7 @@ After Class is an organized system that helps students enrolled in massive onlin
 
 ### Getting user information
 
-In order to help facilitate group formation students must fill out a short survey when they first sign up for the service. The first section of the survey asks about personal and demographic information. This information will allow students to better filter potential study-buddies based on who they believe they will work best with. 
+In order to help facilitate group formation students must fill out a short survey when they first sign up for the service. The first section of the survey asks about personal and demographic information. This information will allow students to better filter potential study-buddies based on who they believe they will work best with. We also allow users to give a tweet length bio to give some more information to potential group-mates.
 
 ![Personal and demographic information screen](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/welcome-step-1.png)
 
