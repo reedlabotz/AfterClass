@@ -23,11 +23,17 @@
 {% endblock %}
 {% block bottom_script %}
 <script>
+function showLearningStyleHelp(){
+
+}
+
 $(document).ready(function(){
-  console.log($("#id_bio"));
   $("#id_bio").bind('input propertychange',function(){
     $("label[for='id_bio']").html("Tell us a little about yourself, ("+(140-$("#id_bio").val().length)+" characters remaining)");
   });
+
+  $("label[for='id_learning_style']").append("<a class='btn btn-link' rel='popover' id='id_learning_style_help' data-content='<strong>Visual</strong>: data and other information is associated with images and techniques.<br><strong>Auditory</strong>: learn by hearing and speaking information.<br><strong>Tactile</strong>: learn by carrying out a physical activity.<br><strong>' data-original-title='Learning Styles'><i class='icon-question-sign'></i></a>");
+  $('#id_learning_style_help').popover({'placement':'bottom','html':true,'trigger':'hover'});
 });
 </script>
 {% endblock %}

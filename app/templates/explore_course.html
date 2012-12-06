@@ -3,16 +3,22 @@
 {% load availability_check %}
 {% block content %}
 <h2>Find groups for your course <strong>{{usercourse.course}}</strong></h2>
+{% if people %}
 <div class="row">
   <div class="span4" style="position: relative;">
-    <div id="graph" data-spy="affix"></div>
+    <div data-spy="affix" style="width: 300px;">
+      <div id="graph"></div>
+      <div class="alert alert-info" id="viz-info">The black dot in the center represents you. Each other dot is another student enrolled in this course. The closer they are to you, they more similar they are to you.</div>
+    </div>
   </div>
   <div class="span8">
     <div id="user-holder"></div>
     {% bootstrap_paginate people range=10 %}
   </div>
 </div>
-
+{% else %}
+<p>It looks like no one else is enrolled in this course yet. Check back soon!</p>
+{% endif %}
 {% endblock %}
 {% block bottom_script %}
 <script src="{{STATIC_URL}}js/d3.v2.min.js"></script>
@@ -27,9 +33,7 @@ var user = {
   'person_type': '{{user.get_profile.get_person_type_display}}',
   'learning_style': '{{user.get_profile.get_learning_style_display}}',
   'interest': '{{user.get_profile.get_interest_display}}',
-  'general_experience': '{{usercourse.get_general_experience_display}}',
   'general_level': '{{usercourse.get_general_level_display}}',
-  'topic_experience': '{{usercourse.get_topic_experience_display}}',
   'topic_level': '{{usercourse.get_topic_level_display}}',
   'years_experience': '{{usercourse.get_years_experience_display}}',
   'reason': '{{usercourse.get_reason_display}}',
@@ -48,9 +52,7 @@ var people = [
     'interest': '{{p.user.get_profile.get_interest_display}}',
     'bio': '{{p.user.get_profile.bio}}',
     'availability': {% availability_check p.user.get_profile user.get_profile "true" "false" %},
-    'general_experience': '{{p.get_general_experience_display}}',
     'general_level': '{{p.get_general_level_display}}',
-    'topic_experience': '{{p.get_topic_experience_display}}',
     'topic_level': '{{p.get_topic_level_display}}',
     'years_experience': '{{p.get_years_experience_display}}',
     'reason': '{{p.get_reason_display}}',
@@ -61,9 +63,19 @@ var people = [
 ];
 
 var holder = $("#user-holder");
+people.sort(function(a,b){
+  return calculateDistance(a)-calculateDistance(b);
+});
 for(var i=0;i<people.length;i++){
   holder.append(drawUserBox(people[i]));
 }
+
+$(document).ready(function(){
+  setTimeout(function(){
+    $("#viz-info").fadeOut();
+  },10000);
+});
+
 
 var h = 300,
     w = 300;
@@ -123,12 +135,15 @@ var node = svg.selectAll("circle")
     })
     .on("mouseout",function(d){
       if(d != root){
-        $("#user-box-"+d.id).animate({
-          borderTopColor:'transparent',
-          borderLeftColor: 'transparent',
-          borderRightColor: 'transparent',
-          borderBottomColor: 'transparent'
-        },200);
+        setTimeout(function(){
+          $("#user-box-"+d.id).animate({
+            borderTopColor:'transparent',
+            borderLeftColor: 'transparent',
+            borderRightColor: 'transparent',
+            borderBottomColor: 'transparent'
+          },200);
+        },2000);
+        
         d3.select(this).attr("r",SMALL_RADIUS);
       }
     })
@@ -142,10 +157,24 @@ force.on("tick", function(e) {
 $(".user-box").hover(function(){
   var id = $(this).data('user-id');
   svg.select("#user-node-"+id).attr("r",LARGE_RADIUS);
+  $(this).animate({
+    borderTopColor:'#5192FB',
+    borderLeftColor: '#5192FB',
+    borderRightColor: '#5192FB',
+    borderBottomColor: '#5192FB'
+  },200);
 },function(){
   var id = $(this).data('user-id');
   svg.select("#user-node-"+id).attr("r",SMALL_RADIUS);
+  $(this).animate({
+    borderTopColor:'transparent',
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderBottomColor: 'transparent'
+  },200);
 });
+
+
 
 function drawUserBox(user){
   return "<div class='well user-box' id='user-box-"+user.id+"' data-user-id='"+user.id+"'>"+
@@ -159,11 +188,10 @@ function drawUserBox(user){
             "<strong>Similar availability: </strong>"+(user.availability?"Yes":"No")+"<br>"+
             "<strong>Gender: </strong>"+user.gender+"<br>"+
             "<strong>Description: </strong>"+user.person_type+"<br>"+
+            "<strong>Area of study: </strong>"+user.interest+"<br>"+
             "<strong>Age: </strong>"+user.age+"<br>"+
             "<strong>Learning style: </strong>"+user.learning_style+"<br>"+
-            "<strong>General experience: </strong>"+user.general_experience+"<br>"+
             "<strong>General level: </strong>"+user.general_level+"<br>"+
-            "<strong>Topic experience: </strong>"+user.topic_experience+"<br>"+
             "<strong>Topic level: </strong>"+user.topic_level+"<br>"+
             "<strong>Years of experience: </strong>"+user.years_experience+"<br>"+
             "<strong>Reason for taking: </strong>"+user.reason+"<br>"+
@@ -179,10 +207,8 @@ function calculateDistance(other){
                 'gender':0,
                 'person_type':1,
                 'learning_style':1, 
-                'interest':1,
-                'general_experience':1, 
+                'interest':2,
                 'general_level':1, 
-                'topic_experience':1,
                 'topic_level':1,
                 'years_experience':1, 
                 'reason':5,

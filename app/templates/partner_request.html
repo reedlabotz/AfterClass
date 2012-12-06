@@ -9,11 +9,10 @@
             <strong>Similar availability: </strong>{% availability_check partner_request.user.get_profile partner_request.user.get_profile "Yes" "No" %}<br>
             <strong>Gender: </strong> {{partner_request.owner.get_profile.get_gender_display}}<br>
             <strong>Description: </strong> {{partner_request.owner.get_profile.get_person_type_display}}<br>
+            <strong>Description: </strong> {{partner_request.owner.get_profile.get_interest_display}}<br>
             <strong>Age: </strong> {{partner_request.owner.get_profile.get_age_display}}<br>
             <strong>Learning style: </strong> {{partner_request.owner.get_profile.get_learning_style_display}}<br>
-            <strong>General experience: </strong> {{partner_request.owner_usercourse.get_general_experience_display}}<br>
             <strong>General level: </strong> {{partner_request.owner_usercourse.get_general_level_display}}<br>
-            <strong>Topic experience: </strong> {{partner_request.owner_usercourse.get_topic_experience_display}}<br>
             <strong>Topic level: </strong> {{partner_request.owner_usercourse.get_topic_level_display}}<br>
             <strong>Years of experience: </strong> {{partner_request.owner_usercourse.get_years_experience_display}}<br>
             <strong>Reason for taking: </strong> {{partner_request.owner_usercourse.get_reason_display}}<br>

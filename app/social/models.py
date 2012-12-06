@@ -15,7 +15,8 @@ PERSON_AGE_RANGE_CHOICES = (
 
 PERSON_GENDER_CHOICES = (
    ('m','Male'),
-   ('f','Female')
+   ('f','Female'),
+   ('o','Other')
 )
 
 PERSON_TYPE_CHOICES = (
@@ -41,43 +42,43 @@ PERSON_INTEREST_CHOICES = (
    ('Are','Area studies'),
    ('Bus','Business'),
    ('Che','Chemistry'),
-   ('Com','Computer sciences'),
-   ('Cul','Cultural and ethnic studies'),
+   ('Com','Computer Sciences'),
+   ('Cul','Cultural and Ethnic Studies'),
    ('Div','Divinity'),
-   ('Ear','Earth sciences'),
+   ('Ear','Earth Sciences'),
    ('Eco','Economics'),
    ('Edu','Education'),
    ('Eng','Engineering'),
-   ('Env','Environmental studies and Forestry'),
-   ('Fam','Family and consumer science'),
-   ('Gen','Gender and sexuality studies'),
+   ('Env','Environmental Studies and Forestry'),
+   ('Fam','Family and Consumer Science'),
+   ('Gen','Gender and Sexuality Studies'),
    ('Geo','Geography'),
-   ('Hea','Health science'),
+   ('Hea','Health Science'),
    ('His','History'),
-   ('Hum','Human physical performance and recreation*'),
-   ('Jou','Journalism, media studies and communication'),
+   ('Hum','Human Physical Performance and Recreation'),
+   ('Jou','Journalism, Media Studies and Communication'),
    ('Law','Law'),
-   ('Lib','Library and museum studies'),
-   ('Lif','Life sciences'),
+   ('Lib','Library and Museum Studies'),
+   ('Lif','Life Sciences'),
    ('Lin','Linguistics'),
    ('Lit','Literature'),
    ('Log','Logic'),
    ('Mat','Mathematics'),
-   ('Mil','Military sciences'),
-   ('Per','Performing arts'),
+   ('Mil','Military Sciences'),
+   ('Per','Performing Arts'),
    ('Phi','Philosophy'),
    ('Phy','Physics'),
-   ('Pol','Political science'),
+   ('Pol','Political Science'),
    ('Psy','Psychology'),
-   ('Pub','Public administration'),
+   ('Pub','Public Administration'),
    ('Rel','Religion'),
-   ('Soc','Social work'),
+   ('Soc','Social Work'),
    ('Soc','Sociology'),
-   ('Spa','Space science'),
+   ('Spa','Space Science'),
    ('Sta','Statistics'),
-   ('Sys','Systems science'),
+   ('Sys','Systems Science'),
    ('Tra','Transportation'),
-   ('Vis','Visual arts'),
+   ('Vis','Visual Arts'),
    ('Oth','Other')
 )
 
@@ -113,6 +114,10 @@ USER_COURSE_YEARS_CHOICES = (
 USER_COURSE_REASON_CHOICES = (
    ('n','Interest in new topic'),
    ('r','Refresher on topic'),
+   ('b','Background for a new class'),
+   ('e','Recommended by a friend/teacher'),
+   ('t','Taking with a friend'),
+   ('q','Required for a different course'),
    ('o','Other')
 )
 
@@ -124,6 +129,7 @@ USER_COURSE_CREDIT_CHOICES = (
 USER_COURSE_GOAL_CHOICES = (
    ('g','Get a new job'),
    ('e','Gain experience in this topic'),
+   ('c','Curiosity about a topic'),
    ('o','Other')
 )
 
@@ -191,22 +197,14 @@ post_save.connect(createUserProfile, sender=User)
 class UserCourse(models.Model):
    user = models.ForeignKey(User)
    course = models.ForeignKey(Course)
-   general_experience = models.CharField(
-      max_length=1,
-      choices=USER_COURSE_EXPERIENCE_CHOICES,
-      verbose_name="What is your expertise in this general area?")
    general_level = models.CharField(
       max_length=1,
       choices=USER_COURSE_LEVEL_CHOICES,
-      verbose_name="What is your level for this general area of study?")
-   topic_experience = models.CharField(
-      max_length=1,
-      choices=USER_COURSE_EXPERIENCE_CHOICES,
-      verbose_name="What is your expertise in this topic?")
+      verbose_name="What is your level for this course's general area of study?")
    topic_level = models.CharField(
       max_length=1,
       choices=USER_COURSE_LEVEL_CHOICES,
-      verbose_name="What is your level for this topic?")
+      verbose_name="What is your level for this course's specific topic?")
    years_experience = models.CharField(
       max_length=1,
       choices=USER_COURSE_YEARS_CHOICES,

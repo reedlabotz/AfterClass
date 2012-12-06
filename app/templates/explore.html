@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<p>Choose one of your courses you would like to find a new group for.</p>
+<p>To find a group for a course choose from the list below:</p>
 {% for c in courses %}
 <p><a href="/explore/{{c.id}}" class="btn">{{c.course}}</a></p>
 {% empty %}

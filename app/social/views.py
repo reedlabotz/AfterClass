@@ -127,7 +127,7 @@ def courses_add(request):
          try:
             user_course.save()
             messages.add_message(request, messages.SUCCESS, "Course Added.")
-            return redirect('/courses')
+            return redirect('/explore/%d/'%user_course.id)
          except IntegrityError: 
             user_course_form._errors["course"] = ErrorList([u'You are already enrolled in that course'])
    return render_to_response('courses_add.html',{'page':'courses','user_course_form':user_course_form},context_instance=RequestContext(request))

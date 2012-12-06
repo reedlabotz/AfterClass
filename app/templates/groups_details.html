@@ -29,11 +29,10 @@
             <strong>Similar availability: </strong>{% availability_check p.user.get_profile profile "Yes" "No" %}<br>
             <strong>Gender: </strong> {{p.user.get_profile.get_gender_display}}<br>
             <strong>Description: </strong> {{p.user.get_profile.get_person_type_display}}<br>
+            <strong>Area of study: </strong> {{p.user.get_profile.get_interest_display}}<br>
             <strong>Age: </strong> {{p.user.get_profile.get_age_display}}<br>
             <strong>Learning style: </strong> {{p.user.get_profile.get_learning_style_display}}<br>
-            <strong>General experience: </strong> {{p.get_general_experience_display}}<br>
             <strong>General level: </strong> {{p.get_general_level_display}}<br>
-            <strong>Topic experience: </strong> {{p.get_topic_experience_display}}<br>
             <strong>Topic level: </strong> {{p.get_topic_level_display}}<br>
             <strong>Years of experience: </strong> {{p.get_years_experience_display}}<br>
             <strong>Reason for taking: </strong> {{p.get_reason_display}}<br>
