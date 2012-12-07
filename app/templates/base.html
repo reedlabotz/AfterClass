@@ -55,11 +55,13 @@
     </div>
 
     <div class="container">
-      {% if messages %}
-        {% for message in messages %}
-          <div class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message }}</div>
-        {% endfor %}
-      {% endif %}
+      <div id="messages">
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      </div>
       {% block content %}
       {% endblock %}
 
@@ -77,6 +79,7 @@
     <script src="{{STATIC_URL}}js/jquery-1.8.2.min.js"></script>
     <script src="{{STATIC_URL}}js/jquery-ui-1.9.2.custom.min.js"></script>
     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    <script src="{{STATIC_URL}}js/script.js"></script>
     {% block bottom_script %}
     {% endblock %}
   </body>

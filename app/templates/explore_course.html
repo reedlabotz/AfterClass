@@ -70,6 +70,17 @@ for(var i=0;i<people.length;i++){
   holder.append(drawUserBox(people[i]));
 }
 
+$(".request-group-form").submit(function(){
+  var button = $(this).find('input[type="submit"]');
+  button.val("Sending...");
+  $.post('/groups/create/',$(this).serialize(),function(data){
+    button.val(data['success']);
+    button.removeClass('btn-primary');
+    button.addClass('btn-success');
+  });
+  return false;
+});
+
 $(document).ready(function(){
   setTimeout(function(){
     $("#viz-info").fadeOut();
@@ -179,7 +190,7 @@ $(".user-box").hover(function(){
 function drawUserBox(user){
   return "<div class='well user-box' id='user-box-"+user.id+"' data-user-id='"+user.id+"'>"+
 
-            "<form action='/groups/create/' method='post' class='pull-right'>"+
+            "<form action='/groups/create/' method='post' class='pull-right request-group-form'>"+
               "{% csrf_token %}"+
               "<input type='submit' value='Request group' class='btn btn-primary'>"+
               "<input type='hidden' name='user_id' value='"+user.id+"'>"+

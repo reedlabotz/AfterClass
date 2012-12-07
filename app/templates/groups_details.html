@@ -5,18 +5,20 @@
 <div class="row">
    <div class="span8">
       <div class="well group-details">
-         {% for a in actions %}
-         <p><span class="timestamp">{{ a.created|date:"SHORT_DATETIME_FORMAT" }}: </span>
-         {% if a.type == 'j' %}
-         <span class="user">{{a.user.first_name}}</span> joined the group.
-         {% elif a.type == 'c' %}
-         <span class="user">{{a.user.first_name}}: </span>{{a.text}}
-         {% endif %}
-         </p>
-         {% endfor %}
-         <form method="post" class="groups-details-message-form">
+         <div id="messages">
+            {% for a in actions %}
+            <p><span class="timestamp">{{ a.created|date:"SHORT_DATETIME_FORMAT" }}: </span>
+            {% if a.type == 'j' %}
+            <span class="user">{{a.user.first_name}}</span> joined the group.
+            {% elif a.type == 'c' %}
+            <span class="user">{{a.user.first_name}}: </span>{{a.text}}
+            {% endif %}
+            </p>
+            {% endfor %}
+         </div>
+         <form method="post" class="groups-details-message-form" id="send-message-form">
             {% csrf_token %}
-            <textarea name="message" placeholder="Message..."></textarea>
+            <textarea name="message" placeholder="Message..." id="message-text"></textarea>
             <input type="submit" value="Send" class="btn btn-inverse">
          </form>
       </div>
@@ -44,5 +46,7 @@
       {% endfor %}
    </div>
 </div>
-
+{% endblock %}
+{% block bottom_script %}
+<script type="text/javascript"></script>
 {% endblock %}

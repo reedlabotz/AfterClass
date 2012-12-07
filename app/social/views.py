@@ -12,6 +12,8 @@ from django.forms.util import ErrorList
 from django.db import IntegrityError
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+import json
+
 from registration.views import register
 
 from app.social.models import UserProfile, UserCourse, PartnerRequest, Circle, CircleUser, CircleAction
@@ -39,6 +41,8 @@ def groups_details(request,id):
    if request.POST:
       action = CircleAction(user=request.user,circle=group,type='c',text=request.POST.get('message'))
       action.save()
+      if(request.is_ajax()):
+         return HttpResponse(json.dumps({'success':'Message sent'}), mimetype="application/json")
    actions = group.circleaction_set.all()
    people = map(lambda u: u.user.usercourse_set.get(course=group.course),group.circleuser_set.exclude(user=request.user))
    return render_to_response('groups_details.html',{'page':'groups','group':group,'actions':actions,'people':people,'profile':request.user.get_profile()},context_instance=RequestContext(request))
@@ -52,9 +56,12 @@ def groups_create(request):
    
    partner_request = PartnerRequest(owner=request.user,user=other.user,course=usercourse.course).save()
 
-   messages.add_message(request,messages.SUCCESS,'Request sent.')
+   if(request.is_ajax()):
+      return HttpResponse(json.dumps({'success':'Request sent'}), mimetype="application/json")
+   else:
+      messages.add_message(request,messages.SUCCESS,'Request sent.')
 
-   return render_to_response('main.html',{'page':'groups'},context_instance=RequestContext(request))
+      return render_to_response('main.html',{'page':'groups'},context_instance=RequestContext(request))
 
 @login_required
 @user_passes_test(isWelcome, login_url='/welcome')
