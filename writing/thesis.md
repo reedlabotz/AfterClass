@@ -1,8 +1,8 @@
 # After Class: Bringing Social to Massive Open Online Courses
 
-Reed La Botz
-
-University of Illinois at Urbana-Champaign
+Reed La Botz  
+University of Illinois at Urbana-Champaign  
+https://github.com/reedlabotz/AfterClass
 
 Massive Open Online Courses (MOOCs) have gained huge popularity over the last year with enrollments in a single class reaching as high as 160,000[^1]. Several different services have arisen that facilitate these online courses, however all fail to fully address one large aspect of an education -- the need for social interactions amongst the students. After Class is a service that assists students in finding peers enrolled in a MOOC that share common goals and backgrounds to socialize with via online anonymous chat, with encouragement to move on to video or other multi-media chat when all parties are comfortable.
 
@@ -28,13 +28,15 @@ MOOCs began in technical areas, but their popularity quickly has lead to them sp
 
 All three current MOOC systems have incorporated into their design some system for allowing students to interact amongst themselves or with course staff. Both Udacity and Coursera have Q&A style forums that allow students to ask questions and vote on the best answer. This system is perfect for factual questions, but limits the amount of discussion that can be had amongst students. For some of the discussion based courses in the humanities, Coursera has set up live webcasts of panel discussions on topics several times throughout the course. These discussions are moderated and often allow students to either submit questions electronically or wait in a queue to have a chance to join the webcast. 
 
-Coursera has additionally teamed up with the website MeetUp which allows students to organize in-person meetups with groups in cities across the world. This system does allow for some face-to-face social interaction, but the MeetUp site only has a group for Coursera students, not individual courses, leaving students on their own to find a group that will share similar interests. Moreover these meeting are to occur in person limiting the availability only to those living in larger cities.
+Coursera has additionally teamed up with the website MeetUp which allows students to organize in-person meet-ups with groups in cities across the world. This system does allow for some face-to-face social interaction, but the MeetUp site only has a group for Coursera students, not individual courses, leaving students on their own to find a group that will share similar interests. Moreover these meeting are to occur in person limiting the availability only to those living in larger cities.
 
 ## Motivation
 
 Social interaction plays a large role in the current on campus educational system. Many of the most important lessons and discussions happen outside of class in coffee shops, office hours, and dorm rooms. Similar interactions could play an important role in online courses as well giving students a sense of community, a chance to form meaningful study groups or groups for projects, and allow for other social interactions that lead to a better learning experience. One aspect of social interaction that becomes especially important in online courses is the sense of community that it offers, allowing students to realize they are not alone in the class, and therefore have an outlet to discuss problems or lack of understanding with other students.
 
 ## My Approach
+
+After Class takes a dating-site approach to helping users find group mates. The main problem with the existing solutions provided by MOOC systems is that they attempt to use only the forum system to help users organize themselves, this gives users little to go on when trying to find group mates. After Class uses a series of surveys which ask questions aimed at helping users find 
 
 ### Design
 
@@ -46,17 +48,9 @@ Social interaction plays a large role in the current on campus educational syste
 
 ### Implementation
 
-### Critique
+After Class is created using the Django Python web application framework. The website is organized around several key activities that the user needs to complete. Users first sign up to participate in the service and create an email and password for future use. They are then immediately taken to the account profile section where they are asked to give some basic personal information. After getting personal information, we ask users to enter specific information about the MOOCs they are taking and then allow them to explore through other students taking the MOOC in a fun and organized interface. 
 
-## Collaboration Ready
-
-In order for groups to be successful, it is important to ensure that the members of the group are prepared to collaborate well together.
-
-## Toward a Social MOOC
-
-After Class is an organized system that helps students enrolled in massive online classes find other students and student groups to socialize with. 
-
-### Getting user information
+#### Getting User Information
 
 In order to help facilitate group formation students must fill out a short survey when they first sign up for the service. The first section of the survey asks about personal and demographic information. This information will allow students to better filter potential study-buddies based on who they believe they will work best with. We also allow users to give a tweet length bio to give some more information to potential group-mates.
 
@@ -70,7 +64,7 @@ One students have completed the personal information and availability surveys th
 
 ![Add course screen](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/add-course.png)
 
-### Helping users find groups
+#### Helping Users Find Groups
 
 The most important aspect of this service is the ability for students to find other students that will be good partners for them. To help in this process we show users a graph in the explore section that shows how similar to themselves other students are. This allows students to look for other students that they think will be a good fit or them, be it someone who is very similar or someone who is a polar opposite.
 
@@ -82,15 +76,17 @@ One a user sends a partner request the requested user is notified and asked to a
 
 ![Request screen](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/partner-request.png)
 
-### Interacting with a circle
+#### Interacting with a Group
 
 The core of the system is the chat interface which allows users to get to know each other in a very low pressure environment. Once users have accepted each other into a group, they are permitted to now see first names to allow them to identify themselves. This is still an anonymous version of chat that allows them to interact without knowing any specifics about the person they are chatting with. We continue to display the meta information about each user to give a sort of ice breaker and allow the users to remember some more information about the user they are talking to. This information also helps to remind users that they either do or don't have similar availability, so that if they wish they can take the chat from this service to a multimedia chat environment such as Skype or Google Hangouts.
 
 ![Chat interface](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/chat.png)
 
-### Future features
+### Future Features
 
 Although the main focus of this project is to find groups for online interaction, the same system could also assist students to find groups for in person meet-ups. This has the benefit over the current solution offered by MOOC providers of having all the meta data about students in the class allowing people to only join meet-ups which will be productive.
+
+### Critique
 
 ## Future Research
 
