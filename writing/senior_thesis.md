@@ -106,7 +106,7 @@ These questions add to the discovery of common ground, but mainly hit on collabo
 
 #### Helping Users Find Groups
 
-The most important aspect of this service is the ability for students to find other students that will be good partners for them. To help in this process I show users a graph in the explore section that shows how similar to themselves other students are. This allows students to look for other students that they think will be a good fit or them, be it someone who is very similar or someone who is a polar opposite.
+The most important aspect of this service is the ability for students to find other students that will be good partners for them. To help in this process I show users a graph in the explore section that shows how similar to themselves other students are. This allows students to look for other students that they think will be a good fit or them, be it someone who is very similar or someone who is a polar opposite. This visualization represents the current user as a large black circle surrounded by other users represented by the smaller colorful dots. The distance of each dot from the user represents the number of similar responses from the survey. As users hover over a users detail box, that users circle on the visualization is highlighted, and inversely if the user mouses over a dot in the visualization, the user profile represented by that dot is scrolled into view.
 
 ![Explore screen](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/explore.png)
 
@@ -124,7 +124,7 @@ The core of the system is the chat interface which allows users to get to know e
 
 After the group members have had a chance to get to know each other in an anonymous setting, each user is asked if they feel comfortable having a video chat with their partner, and once both partners agree, a video chat is suggested and potential times from their schedule are suggested.
 
-!TODO: Add video suggest screenshot
+![Video suggestion](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/video_interest.png)
 
 ### Future Features
 
