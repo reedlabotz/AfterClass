@@ -238,6 +238,8 @@ class Circle(models.Model):
 class CircleUser(models.Model):
    circle = models.ForeignKey(Circle)
    user = models.ForeignKey(User)
+   video = models.BooleanField(default=False)
+   last_video = models.DateTimeField(auto_now=True)
    created = models.DateTimeField(auto_now=True)
 
 class CircleAction(models.Model):

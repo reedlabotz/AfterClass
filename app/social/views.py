@@ -13,6 +13,7 @@ from django.db import IntegrityError
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 import json
+from datetime import datetime
 
 from registration.views import register
 
@@ -38,14 +39,25 @@ def groups(request):
 @user_passes_test(isWelcome, login_url='/welcome')
 def groups_details(request,id):
    group =  get_object_or_404(request.user.circle_set,id=id)
+   circleuser = request.user.circleuser_set.get(circle=group)
    if request.POST:
-      action = CircleAction(user=request.user,circle=group,type='c',text=request.POST.get('message'))
-      action.save()
+      if len(request.POST.get('message')) > 0:
+         action = CircleAction(user=request.user,circle=group,type='c',text=request.POST.get('message'))
+         action.save()
+      if request.POST.get('video') is not None:
+         circleuser.video = request.POST.get('video') == "Yes"
+         circleuser.last_video = datetime.now()
+         circleuser.save()
       if(request.is_ajax()):
          return HttpResponse(json.dumps({'success':'Message sent'}), mimetype="application/json")
    actions = group.circleaction_set.all()
    people = map(lambda u: u.user.usercourse_set.get(course=group.course),group.circleuser_set.exclude(user=request.user))
-   return render_to_response('groups_details.html',{'page':'groups','group':group,'actions':actions,'people':people,'profile':request.user.get_profile()},context_instance=RequestContext(request))
+
+   request_video = not circleuser.video
+   if request_video:
+      request_video = group.circleaction_set.filter(created__gt=circleuser.last_video).count() > 10
+      print  group.circleaction_set.filter(created__gt=circleuser.last_video).count()
+   return render_to_response('groups_details.html',{'page':'groups','group':group,'actions':actions,'people':people,'profile':request.user.get_profile(),'request_video':request_video},context_instance=RequestContext(request))
 
 @login_required
 @user_passes_test(isWelcome, login_url='/welcome')

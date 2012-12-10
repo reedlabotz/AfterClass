@@ -19,7 +19,8 @@
          <form method="post" class="groups-details-message-form" id="send-message-form">
             {% csrf_token %}
             <textarea name="message" placeholder="Message..." id="message-text"></textarea>
-            <input type="submit" value="Send" class="btn btn-inverse">
+            <input type="submit" value="Send" class="btn btn-inverse">{% if request_video %}<div class="pull-right">Would you like to video chat with this group? <input type="submit" name="video" value="Yes" class="btn btn-inverse"> <input type="submit" name="video" value="No" class="btn btn-inverse"></div>{% endif %}
+
          </form>
       </div>
    </div>
