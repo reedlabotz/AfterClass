@@ -4,7 +4,7 @@ Reed La Botz
 University of Illinois at Urbana-Champaign  
 https://github.com/reedlabotz/AfterClass
 
-Massive Open Online Courses (MOOCs) have gained huge popularity over the last year with enrollments in a single class reaching as high as 160,000[^1]. Several different services have arisen that facilitate these online courses, however all fail to fully address one large aspect of an education--the need for social interactions amongst the students. After Class is a service that assists students in finding peers enrolled in a MOOC that share common goals and backgrounds to socialize with via online anonymous chat, with encouragement to move on to video or other multi-media chat when all parties are comfortable.
+Massive Open Online Courses (MOOCs) have gained huge popularity over the last year with enrollments in a single class reaching as high as 160,000[^1]. Several different services have arisen that facilitate these online courses, however all fail to fully address one large aspect of an education--the need for social interactions amongst the students. Interactions amongst students help lead to a sense of community, a necessity for learning. *After Class* is a service that assists students in finding peers enrolled in a MOOC that share common goals and backgrounds to socialize with via online anonymous chat, with encouragement to move on to video or other multi-media chat when all parties are comfortable.
 
 ## Background
 
@@ -12,19 +12,19 @@ Massive Open Online Courses are only the latest incarnation of free, open public
 
 ### History of Open Education
 
-Distance learning has been attempted through several different media in the past century. Between 1918 and 1946, 202 educational institutions received radio broadcasting licenses resulting in one for-credit course that failed to attract any students. In the 1970's and 1980's cable and satellite television was used to deliver educational content. In fall of 1991, eighteen institutions use the Mind Extension University Educational Network to deliver video courses.[^2] In Britain the Open University was establish in 1969 offering open enrollment to most of its courses which were broadcast by the BBC and distributed on CDs and DVDs[^3].
+Distance learning has been attempted through several different media in the past century, first on the radio where 202 educational institutions received broadcasting licenses between 1918 and 1946. During this time one for-credit course was broadcast that failed to attract any students. In the 1970's and 1980's cable and satellite television was used to deliver educational content. In fall of 1991, eighteen institutions use the Mind Extension University Educational Network to deliver video courses[^2]. In Britain the Open University was establish in 1969 offering open enrollment to most of its courses which were broadcast by the BBC and distributed on CDs and DVDs[^3].
 
-MOOCs are the latest version of free open education, using the power of the internet to deliver content to students. An early MOOC precursors was iTunes U which used the popular iTunes software to provide recordings of courses taught at Universities or other educational institutions to users free of charge. This system currently has over 350,000 videos in its library from a wide variety of institutions. Another system that uses the internet to present educational videos to students is the Khan Academy, offering 3500 micro lectures directed primarily at grade school children. The primary difference between the Khan Academy and other MOOCs is that the content is not separated into separate courses but instead each micro lecture is meant to stand on its own. 
+MOOCs are the latest version of free open education, using the power of the internet to deliver content to students. An early MOOC precursor was iTunes U which used the popular iTunes software to provide recordings of courses taught at Universities or other educational institutions to users free of charge. This system currently has over 350,000 videos in its library from a wide variety of institutions. Another system that uses the internet to present educational videos to students is the Khan Academy, offering 3500 micro lectures directed primarily at grade school children. The primary difference between the Khan Academy and other MOOCs is that the content is not separated into separate courses but instead each micro lecture is meant to stand on its own. 
 
 ### What Defines a MOOC?
 
 All Massive Open Online Courses share two important common traits, they must have open access, meaning not only free, but also without limitations on location or organizational affiliation, and they must be scalable, meaning they can easily accommodate tens or hundreds of thousands of users [^4]. These traits often also lead to content being highly structured, and the courses relying heavily on a strong community of students to ask and answer questions in the online forums or Q&A systems. This also limits the formats of assignments that can be given in the courses, mostly machine gradeable, either multiple choice questions or code that the computer can process.
 
-Three separate services began offing MOOCs in 2012 starting with the extremely popular course by Sebastian Thrun and Peter Norvig with an enrollment of 160,000 students[^4]. The first two websites, Udacity and Coursera, began offering courses in April 2012 and currently have one million and 750,000 members respectively. One key difference in the two sites is that Udacity courses are taught by people as individuals, while Coursera courses are offered as part of a partnership with universities. A third similar website, edX, opened registration in Fall 2012 as a partnership between MIT and Harvard with participation from several other Universities to offer MOOCs. 
+Three separate services began offering MOOCs in 2012 starting with the extremely popular course by Sebastian Thrun and Peter Norvig with an enrollment of 160,000 students[^4]. The first two websites, Udacity and Coursera, began offering courses in April 2012 and currently have one million and 750,000 members respectively. One key difference in the two sites is that Udacity courses are taught by people as individuals, while Coursera courses are offered as part of a partnership with universities. A third similar website, edX, opened registration in Fall 2012 as a partnership between MIT and Harvard with participation from several other Universities to offer MOOCs. 
 
 Discussions of the impact that MOOCs will have on education and educational institutions have appeared repeatedly in the New York Times[^1][^5][^6], all concluding that the "lower-tier colleges, already facing resistance over high tuition may have trouble convincing students that their courses are worth the price"[^5]. The Chronicle of Higher Education speculates about the future of MOOCs and their impact on the "credit monopoly" held by educational institutions, "Someone scoring in the top 1 percent of students in a course bought by a world-famous scholar and endorsed by a world-famous university deserves no credit, while some slacker freshman who ekes out a C deserves four credits?"[^7]. The Economist questions the value of a traditional university education with soaring tuition prices, predicting that "universities will come under pressure to move to something more like a "buffet" arrangement, under which they will accept credits from each other--and from students who take courses at home"[^8].
 
-MOOCs began in technical areas, but their popularity quickly has lead to them spreading to many different areas of study including statistics, chemistry, and poetry. These non-technical topics presented extra challenges, such as written homework responses that cannot be graded by machine and discussions that required student participation. These courses have introduced a crowd sourcing approach which uses the students in the class as graders of each others' homework and adopted new types of multi-person video conferencing such as Google Hangouts to allow more meaningful student participation in discussions.
+MOOCs began in technical areas, but their popularity quickly has lead to them spreading to many different areas of study including statistics, chemistry, and poetry. These non-technical topics presented extra challenges, such as written homework responses that cannot be graded by machine and discussions that required student participation. These courses have introduced a crowd-sourcing approach which uses the students in the class as graders of each others' homework and adopted new types of multi-person video conferencing such as Google Hangouts to allow more meaningful student participation in discussions.
 
 ## Existing Solutions
 
@@ -34,15 +34,15 @@ Coursera has additionally teamed up with the website MeetUp which allows student
 
 ## Motivation
 
-Social interaction plays a large role in the on campus educational system. The most important discussions happen outside of class in hallways, dorm rooms, and coffee shops while the best learning happens in while working in study groups and on group projects. Similar interactions will play an important role in online courses as their popularity grows, giving students a sense of community, a chance to form meaningful study groups and groups for projects. One aspect of social interaction that becomes especially important in online courses is the community that it offers, allowing students to realize they are not alone in the class and have an outlet to discuss problems or lack of understanding with other students. 
+Social interaction plays a large role in the on campus educational system. The most important discussions often happen outside of class in hallways, dorm rooms, and coffee shops while the best learning happens in while working in study groups and on group projects. Similar interactions will play an important role in online courses as their popularity grows, giving students a sense of community, a chance to form meaningful study groups and groups for projects. One aspect of social interaction that becomes especially important in online courses is the community that it offers, allowing students to realize they are not alone in the class. This provides students an outlet to discuss problems they may have in the course. In a traditional setting it has been argued that "students with poor interpersonal relations are more likely to experience academic failure" and that community may be essential to "meaningful, deep learning"[^9]. 
 
 ## My Approach
 
-After Class takes a data-centric approach to helping users find group mates. The forums offered by MOOC providers have no structured data and leave students to search through thread subject lines for students that will share common goals. After Class collects user data through a series of surveys which ask questions aimed at helping users find define their goals in taking the course. 
+*After Class* takes a data-centric approach to helping users find group mates. The forums offered by MOOC providers have no structured data and leave students to search through thread subject lines for students that will share common goals. *After Class* collects user data through a series of surveys which ask questions aimed at helping users find define their goals in taking the course. 
 
 ### Design
 
-After Class is designed to give users the maximum amount of useful information about their potential group mates without overwhelming them with abundant questions and provide a fun and friendly interface for finding partners. The website is organized around several key activities that the user needs to complete:
+*After Class* is designed to give users the maximum amount of useful information about their potential group mates without overwhelming them with abundant questions and provide a fun and friendly interface for finding partners. The website is organized around several key activities that the user needs to complete:
 
 * Sign up and create authentication credentials
 * Enter basic demographic and personal information
@@ -60,17 +60,17 @@ As there is lots of initial information that must be collected from the users up
 
 The core of this service is its ability to provide users with data about potential partners that will lead to partner choices with the most chance of success. Choosing which questions to ask is a delicate decision that must balance the utility of the data gained against the potential to exhaust the user with too many questions. 
 
-Olson and Olson define two relevant concepts important to having groups that work well together[^9]. The first is common ground, "knowledge that the participants have in common, and that they are aware they have in common."[^9] The second is collaboration readiness which consists of two dimensions, work-related and social. The work-related dimension is that "the goals of the subgroups need to be aligned" while the social dimension is that "there is some benefit for all participants"[^10]. The questions chosen are directed at satisfying these collaboration requirements. 
+Olson and Olson define two relevant concepts important to having groups that work well together[^10]. The first is common ground, "knowledge that the participants have in common, and that they are aware they have in common."[^10] The second is collaboration readiness which consists of two dimensions, work-related and social. The work-related dimension is that "the goals of the subgroups need to be aligned" while the social dimension is that "there is some benefit for all participants"[^11]. The questions chosen are directed at satisfying these collaboration requirements. 
 
-The first interaction that users have is purely text based and remains pseudo-anonymous giving only the answers to survey questions as identifying information, but to have the most productive interactions users should be urged to use a multi media chatting system. Video chat was shown to improve remote interaction by allowing users to "express understand or agreement, forecast responses, enhance verbal descriptions, give purely nonverbal information, express attitudes through posture and facial expression, and manage extended pauses"[^11].
+The first interaction that users have is purely text based and remains pseudo-anonymous giving only the answers to survey questions as identifying information, but to have the most productive interactions users should be urged to use a multi media chatting system. Video chat was shown to improve remote interaction by allowing users to "express understand or agreement, forecast responses, enhance verbal descriptions, give purely nonverbal information, express attitudes through posture and facial expression, and manage extended pauses"[^12].
 
 ### Goals
 
-The goal of this system is to assist users in finding groups that will be beneficial to the their experience in a course. The proper pairing for each person may vary widely, so After Class avoids an algorithmic approach to finding partners and instead opt to provide an organized set of data on each user that will allow users to choose partners they think will work well with them. 
+The goal of this system is to assist users in finding groups that will be beneficial to the their experience in a course. The proper pairing for each person may vary widely, so *After Class* avoids an algorithmic approach to finding partners and instead opt to provide an organized set of data on each user that will allow users to choose partners they think will work well with them. 
 
 ### Final Design and Implementation
 
-After Class is created using the Django Python web application framework.
+*After Class* is created using the Django Python web application framework.
 
 #### Getting User Information
 
@@ -118,7 +118,7 @@ One a user sends a partner request the requested user is notified and asked to a
 
 #### Interacting with a Group
 
-The core of the system is the chat interface which allows users to get to know each other in a very low pressure environment. Once users have accepted each other into a group, they are permitted to now see first names to allow them to identify themselves. This is still an anonymous chat that allows them to interact without knowing any specifics about the person they are chatting with. We continue to display the meta information about each user to give an ice breaker and allow the users to remember  the information about the user they are talking to.
+The core of the system is the chat interface which allows users to get to know each other in a very low pressure environment. Once users have accepted each other into a group, they are permitted to now see first names to allow them to identify themselves. This is still an anonymous chat that allows them to interact without knowing any specifics about the person they are chatting with. The meta information about each user is shown to give an ice breaker and allow the users to remember details about the user they are talking to.
 
 ![Chat interface](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/chat.png)
 
@@ -158,8 +158,11 @@ Since groups are made up of students with a shared enrollment in a class, advert
 
 [^8]: "Higher education: Not what it used to be." The Economist 10 December 2012 <http://www.economist.com/news/united-states/21567373-american-universities-represent-declining-value-money-their-students-not-what-it>.
 
-[^9]: Olson, Gary M., and Judith S. Olson. "Distance matters." Human-computer interaction 15.2 (2000): 139-178.
+[^9]: Rovai, Alfred P. "A preliminary look at the structural differences of higher education classroom communities in traditional and ALN courses." Journal of Asynchronous Learning Networks 6.1 (2002): 41-56.
 
-[^10]: Olson, Judith S. et al. "A Theory of Remote Scientific Collaboration." _Scientific collaboration on the Internet_. Cambridge, Mass: MIT Press, 2008. 
+[^10]: Olson, Gary M., and Judith S. Olson. "Distance matters." Human-computer interaction 15.2 (2000): 139-178.
 
-[^11]: Ellen A. Isaacs and John C. Tang. 1993. "What video can and can't do for collaboration: a case study." In Proceedings of the first ACM international conference on Multimedia (MULTIMEDIA '93). ACM, New York, NY, USA, 199-206. DOI=10.1145/166266.166289 <http://doi.acm.org/10.1145/166266.166289>
+[^11]: Olson, Judith S. et al. "A Theory of Remote Scientific Collaboration." _Scientific collaboration on the Internet_. Cambridge, Mass: MIT Press, 2008. 
+
+[^12]: Ellen A. Isaacs and John C. Tang. 1993. "What video can and can't do for collaboration: a case study." In Proceedings of the first ACM international conference on Multimedia (MULTIMEDIA '93). ACM, New York, NY, USA, 199-206. DOI=10.1145/166266.166289 <http://doi.acm.org/10.1145/166266.166289>
+
