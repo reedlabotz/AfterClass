@@ -2,7 +2,7 @@
 
 Reed La Botz  
 University of Illinois at Urbana-Champaign  
-https://github.com/reedlabotz/AfterClass
+[https://github.com/reedlabotz/AfterClass](https://github.com/reedlabotz/AfterClass)
 
 Massive Open Online Courses (MOOCs) have gained huge popularity over the last year with enrollments in a single class reaching as high as 160,000[^1]. Several different services have arisen that facilitate these online courses, however all fail to fully address one large aspect of an education--the need for social interactions amongst the students. Interactions amongst students help lead to a sense of community, a necessity for learning. *After Class* is a service that assists students in finding peers enrolled in a MOOC that share common goals and backgrounds to socialize with via online anonymous chat, with encouragement to move on to video or other multi-media chat when all parties are comfortable.
 
@@ -22,7 +22,7 @@ All Massive Open Online Courses share two important common traits, they must hav
 
 Three separate services began offering MOOCs in 2012 starting with the extremely popular course by Sebastian Thrun and Peter Norvig with an enrollment of 160,000 students[^4]. The first two websites, Udacity and Coursera, began offering courses in April 2012 and currently have one million and 750,000 members respectively. One key difference in the two sites is that Udacity courses are taught by people as individuals, while Coursera courses are offered as part of a partnership with universities. A third similar website, edX, opened registration in Fall 2012 as a partnership between MIT and Harvard with participation from several other Universities to offer MOOCs. 
 
-Discussions of the impact that MOOCs will have on education and educational institutions have appeared repeatedly in the New York Times[^1][^5][^6], all concluding that the "lower-tier colleges, already facing resistance over high tuition may have trouble convincing students that their courses are worth the price"[^5]. The Chronicle of Higher Education speculates about the future of MOOCs and their impact on the "credit monopoly" held by educational institutions, "Someone scoring in the top 1 percent of students in a course bought by a world-famous scholar and endorsed by a world-famous university deserves no credit, while some slacker freshman who ekes out a C deserves four credits?"[^7]. The Economist questions the value of a traditional university education with soaring tuition prices, predicting that "universities will come under pressure to move to something more like a "buffet" arrangement, under which they will accept credits from each other--and from students who take courses at home"[^8].
+Discussions of the impact that MOOCs will have on education and educational institutions have appeared repeatedly in the New York Times[^1][^5][^6], all concluding that the "lower-tier colleges, already facing resistance over high tuition may have trouble convincing students that their courses are worth the price"[^5]. The Chronicle of Higher Education speculates about the future of MOOCs and their impact on the "credit monopoly" held by educational institutions, "Someone scoring in the top 1 percent of students in a course taught by a world-famous scholar and endorsed by a world-famous university deserves no credit, while some slacker freshman who ekes out a C deserves four credits?"[^7]. The Economist questions the value of a traditional university education with soaring tuition prices, predicting that "universities will come under pressure to move to something more like a "buffet" arrangement, under which they will accept credits from each other--and from students who take courses at home"[^8].
 
 MOOCs began in technical areas, but their popularity quickly has lead to them spreading to many different areas of study including statistics, chemistry, and poetry. These non-technical topics presented extra challenges, such as written homework responses that cannot be graded by machine and discussions that required student participation. These courses have introduced a crowd-sourcing approach which uses the students in the class as graders of each others' homework and adopted new types of multi-person video conferencing such as Google Hangouts to allow more meaningful student participation in discussions.
 
@@ -34,11 +34,11 @@ Coursera has additionally teamed up with the website MeetUp which allows student
 
 ## Motivation
 
-Social interaction plays a large role in the on campus educational system. The most important discussions often happen outside of class in hallways, dorm rooms, and coffee shops while the best learning happens in while working in study groups and on group projects. Similar interactions will play an important role in online courses as their popularity grows, giving students a sense of community, a chance to form meaningful study groups and groups for projects. One aspect of social interaction that becomes especially important in online courses is the community that it offers, allowing students to realize they are not alone in the class. This provides students an outlet to discuss problems they may have in the course. In a traditional setting it has been argued that "students with poor interpersonal relations are more likely to experience academic failure" and that community may be essential to "meaningful, deep learning"[^9]. 
+Social interaction plays a large role in the on campus educational system. The most important discussions often happen outside of class in hallways, dorm rooms, and coffee shops while the best learning happens while working in study groups and on group projects. Similar interactions will play an important role in online courses as their popularity grows, giving students a sense of community, a chance to form meaningful study groups and groups for projects. One aspect of social interaction that becomes especially important in online courses is the community that it offers, allowing students to realize they are not alone in the class. This provides students an outlet to discuss problems they may have in the course. In a traditional setting it has been argued that "students with poor interpersonal relations are more likely to experience academic failure" and that community may be essential to "meaningful, deep learning"[^9]. 
 
 ## My Approach
 
-*After Class* takes a data-centric approach to helping users find group mates. The forums offered by MOOC providers have no structured data and leave students to search through thread subject lines for students that will share common goals. *After Class* collects user data through a series of surveys which ask questions aimed at helping users find define their goals in taking the course. 
+*After Class* takes a data-centric approach to helping users find group mates. The forums offered by MOOC providers have no structured data and leave students to search through thread subject lines for students that will share common goals. *After Class* collects user data through a series of surveys which ask questions aimed at helping users find partners that match their goals in taking the course. 
 
 ### Design
 
@@ -81,7 +81,7 @@ To sign up for the service users are asked to give a username and password for f
 * Which best describes you? (Highschool Student, Undergraduate Student, Graduate Student, Academic, Professional, Other)
 * Which learning style best describes you? (Visual, Auditory, Tactile) 
 * What is your area of interest? (Agriculture, Anthropology, Archeology, etc.)
-* Tell us a little about yourself, (140 characters remaining)
+* Tell us a little about yourself, (Limited to 140 characters)
 
 These questions are aimed at deciding if the users have common ground meaning they have similar backgrounds and education levels.
 
@@ -110,7 +110,7 @@ The most important aspect of this service is the ability for students to find ot
 
 ![Explore screen](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/explore.png)
 
-One a user sends a partner request the requested user is notified and asked to accept or reject the request based on the same user information provided in the explore screen. During the request process the personal information of neither party is given to the other until both have approved the group.
+Once a user sends a partner request the requested user is notified and asked to accept or reject the request based on the same user information provided in the explore screen. During the request process the personal information of neither party is given to the other until both have approved the group.
 
 ![Requests notice](https://raw.github.com/reedlabotz/AfterClass/master/writing/screenshots/request.png)
 
