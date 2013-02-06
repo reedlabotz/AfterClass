@@ -95,7 +95,7 @@ Once students have completed the personal information and availability surveys t
 
 * What is your level for this course's general area of study? (Novice, Intermediate, Advanced)
 * What is your level for this course's specific topic? (Novice, Intermediate, Advanced)
-* How many years of experience do you have in this area? (<1 year, 1-2 years, 2-5 years, >5 years)
+* How many years of experience do you have in this area? (< 1 year, 1-2 years, 2-5 years, > 5 years)
 * Why are you taking this course? (Interest in new topic, Refresher on topic, Background for a new class, Recommended by a friend/teacher, Taking with a friend, Required for a different course, Other)
 * Are you taking this course for credit at any academic institution? (Yes, No)
 * What is your primary goal from taking this course? (Get a new job, Gain experience in this topic, Curiosity about a topic, Other)
